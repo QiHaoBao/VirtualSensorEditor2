@@ -1,6 +1,7 @@
 define(function (require) {
   var _        = require('underscore');
   var Backbone = require('backbone');
+  var config   = require('config');
 
   var ProcessorView = Backbone.View.extend({
     initialize: function (options) {
@@ -13,33 +14,24 @@ define(function (require) {
       var paper = this.paper;
       var set  = this.set;
 
-      // ports
-      var portMarginLeft = 10;
-      var portMarginTop = 10;
-      var portLineHeight = 12;
-      var portLineSpacing = 10;
-
       processor.inputPorts.each(function (port, i) {
-        setTimeout(function () {
-          var text = paper.text(
-            portMarginLeft,
-            i * (portLineHeight + portLineSpacing) + portMarginTop,
-            port.get('name')
-          );
-          set.push(text);
-        }, 0);
+        var text = paper.text(
+          config.ui.port.marginLeftRight,
+          i * config.ui.port.lineHeight + config.ui.port.marginTopBottom,
+          port.get('name')
+        ).attr({
+          'text-anchor': 'start',
+        });
+        set.push(text);
       });
 
-      var portsHeight = processor.inputPorts.length * portLineHeight +
-                        (processor.inputPorts.length - 1) * portLineSpacing +
-                        2 * portMarginTop;
-      console.log(portsHeight);
+      var portsHeight = (processor.inputPorts.length - 1) * config.ui.port.lineHeight +
+                        2 * config.ui.port.marginTopBottom;
 
       // container box
       var box = paper.rect(processor.get('x'), processor.get('y'), 100, portsHeight, 3);
       box.toBack();
       set.push(box);
-
     }
   });
 
