@@ -1,8 +1,10 @@
 define(function (require) {
-  var _        = require('underscore');
-  var Backbone = require('backbone');
-  var Port     = require('models/port');
-  var Ports    = require('collections/ports');
+  var _          = require('underscore');
+  var Backbone   = require('backbone');
+  var Port       = require('models/port');
+  var Ports      = require('collections/ports');
+  var Activity   = require('models/activity');
+  var Activities = require('collections/activities');
 
   var Processor = Backbone.Model.extend({
     defaults: {
@@ -13,6 +15,7 @@ define(function (require) {
     initialize: function () {
       this.inputPorts = new Ports();
       this.outputPorts = new Ports();
+      this.activities = new Activities();
     },
 
     addInputPort: function (name) {
@@ -25,6 +28,14 @@ define(function (require) {
       this.outputPorts.add(port);
     },
 
+    getInputPort: function (name) {
+      return this.inputPorts.findWhere({ name: name });
+    },
+
+    getOutputPort: function (name) {
+      return this.outputPorts.findWhere({ name: name });
+    },
+
     setInputPortValue: function (portName, value) {
       var port = this.inputPorts.findWhere({ name: portName });
       if (port) {
@@ -32,6 +43,10 @@ define(function (require) {
       } else {
         throw new Error('No such port named ' + portName);
       }
+    },
+
+    addActivity: function (act) {
+      this.activities.add(act);
     }
   });
 
