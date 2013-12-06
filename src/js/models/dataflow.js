@@ -11,7 +11,7 @@ define(function (require) {
       this.datalinks = new DataLinks();
     },
 
-    addprocessor: function (processor) {
+    addProcessor: function (processor) {
       this.addProcessors([processor]);
     },
 
@@ -22,24 +22,6 @@ define(function (require) {
     },
 
     buildDependencyGraph: function (processors) {
-      //var graph = this.dependencyGraph = {};
-
-      //_.each(processors, function (processor) {
-        //var id = processor.id;
-        //var dependencies = processor.get('dependencies');
-
-        //if (!_.isArray(dependencies)) {
-          //return;
-        //}
-
-        //_.each(dependencies, function (d) {
-          //if (!graph[d]) {
-            //graph[d] = [];
-          //}
-          //graph[d].push(id);
-        //});
-      //});
-
     },
 
     addDataLink: function (datalink) {
