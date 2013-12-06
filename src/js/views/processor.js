@@ -6,13 +6,13 @@ define(function (require) {
   var ProcessorView = Backbone.View.extend({
     initialize: function (options) {
       this.paper = options.paper;
-      this.set = this.paper.set();
+      this.subViews = this.paper.set();
     },
 
     render: function () {
       var processor = this.model;
       var paper = this.paper;
-      var set  = this.set;
+      var subViews = this.subViews;
 
       processor.inputPorts.each(function (port, i) {
         var text = paper.text(
@@ -22,7 +22,7 @@ define(function (require) {
         ).attr({
           'text-anchor': 'start',
         });
-        set.push(text);
+        subViews.push(text);
       });
 
       var portsHeight = (processor.inputPorts.length - 1) * config.ui.port.lineHeight +
@@ -31,7 +31,7 @@ define(function (require) {
       // container box
       var box = paper.rect(processor.get('x'), processor.get('y'), 100, portsHeight, 3);
       box.toBack();
-      set.push(box);
+      subViews.push(box);
     }
   });
 
