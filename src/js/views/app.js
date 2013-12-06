@@ -18,32 +18,29 @@ define(function (require) {
     render: function () {
       this.dataflowView.setElement(this.$el).render();
       
-      setTimeout(function () {
-        var df = this.dataflow;
+      var df = this.dataflow;
 
-        var p1 = new Processor();
-        p1.addInputPort('p1i1');
-        p1.addInputPort('p1i2');
-        p1.addOutputPort('p1o1');
+      var p1 = new Processor();
+      p1.addInputPort('p1i1');
+      p1.addInputPort('p1i2');
+      p1.addOutputPort('p1o1');
 
-        var p2 = new Processor();
-        p2.addInputPort('p2i1');
-        p2.addOutputPort('p2o1');
+      var p2 = new Processor();
+      p2.addInputPort('p2i1');
+      p2.addOutputPort('p2o1');
 
-        var act = new Activity({
-          logic: function (inputPorts, outputPorts) {
-            var i1 = inputPorts.findWhere({ name: 'p2i1' });
-            var o1 = outputPorts.findWhere({ name: 'p2o1' });
-            o1.setValue(i1.getValue());
-          }
-        });
-        p2.addActivity(act);
+      var act = new Activity({
+        logic: function (inputPorts, outputPorts) {
+          var i1 = inputPorts.findWhere({ name: 'p2i1' });
+          var o1 = outputPorts.findWhere({ name: 'p2o1' });
+          o1.setValue(i1.getValue());
+        }
+      });
+      p2.addActivity(act);
 
-        var l1 = new DataLink(p1.getOutputPort('p1o1'), p2.getInputPort('p2i1'));
-        df.addProcessor(p1);
-        df.addDataLink(l1);
-
-      }, 100);
+      var l1 = new DataLink(p1.getOutputPort('p1o1'), p2.getInputPort('p2i1'));
+      df.addProcessor(p1);
+      df.addDataLink(l1);
 
       return this;
     }
