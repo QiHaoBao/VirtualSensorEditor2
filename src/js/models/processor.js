@@ -47,6 +47,25 @@ define(function (require) {
 
     addActivity: function (act) {
       this.activities.add(act);
+    },
+
+    getX: function () {
+      return this.get('x');
+    },
+    setX: function (x) {
+      this.set('x', x);
+    },
+
+    getY: function () {
+      return this.get('y');
+    },
+    setY: function () {
+      this.set('y');
+    },
+
+    setPosition: function (x, y) {
+      this.set('x', x);
+      this.set('y', y);
     }
   });
 
