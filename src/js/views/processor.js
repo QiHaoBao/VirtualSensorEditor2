@@ -2,6 +2,7 @@ define(function (require) {
   var _        = require('underscore');
   var Backbone = require('backbone');
   var config   = require('config');
+  var round    = Math.round;
 
   var ProcessorView = Backbone.View.extend({
     initialize: function (options) {
@@ -45,10 +46,10 @@ define(function (require) {
       var ox, oy; // original x, y
       var box = paper
         .rect(
-          -halfWidth - config.ui.port.marginLeftRight,
-          -height / 2 - config.ui.port.marginTopBottom,
-          2 * (halfWidth + config.ui.port.marginLeftRight),
-          height + 2 * config.ui.port.marginTopBottom
+          round(-halfWidth - config.ui.port.marginLeftRight) + 0.5,
+          round(-height / 2 - config.ui.port.marginTopBottom) + 0.5,
+          round(2 * (halfWidth + config.ui.port.marginLeftRight)),
+          round(height + 2 * config.ui.port.marginTopBottom)
         )
         .toBack()
         .attr({
@@ -65,7 +66,7 @@ define(function (require) {
         });
       group.push(box);
 
-      group.translate(100, 100);
+      group.translate(processor.getX(), processor.getY());
     }
   });
 
