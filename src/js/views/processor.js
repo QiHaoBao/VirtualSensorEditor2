@@ -8,6 +8,8 @@ define(function (require) {
     initialize: function (options) {
       this.paper = options.paper;
       this.group = this.paper.set();
+      this.listenTo(this.model, 'change:x', this.updatePosition);
+      this.listenTo(this.model, 'change:y', this.updatePosition);
     },
 
     renderPorts: function (ports, alignment) {
@@ -20,16 +22,21 @@ define(function (require) {
       var anchor = (alignment === 'left' ? 'start' : 'end');
 
       ports.each(function (port, i) {
+        var y = (i - length / 2 + 0.5) * config.ui.port.lineHeight;
         var text = paper
           .text(
             x,
-            (i - length / 2 + 0.5) * config.ui.port.lineHeight,
+            y,
             port.get('name')
           )
           .attr({
             'text-anchor': anchor,
             fill: config.ui.port.text.fill,
-            cursor: config.ui.port.cursor
+            cursor: config.ui.port.cursor,
+          })
+          .data({
+            offsetX: x,
+            offsetY: y
           })
           .hover(function () {
             text.attr({
@@ -58,10 +65,11 @@ define(function (require) {
 
       var halfWidth = config.ui.processor.width / 2;
       var ox, oy; // original x, y
+      var x = round(-halfWidth - config.ui.port.marginLeftRight);
+      var y = round(-height / 2 - config.ui.port.marginTopBottom);
       var box = paper
         .rect(
-          round(-halfWidth - config.ui.port.marginLeftRight),
-          round(-height / 2 - config.ui.port.marginTopBottom),
+          x, y,
           round(2 * (halfWidth + config.ui.port.marginLeftRight)),
           round(height + 2 * config.ui.port.marginTopBottom),
           config.ui.processor.borderRadius
@@ -71,9 +79,13 @@ define(function (require) {
           cursor: config.ui.processor.cursor,
           stroke: config.ui.processor.stroke
         })
+        .data({
+          offsetX: x,
+          offsetY: y
+        })
         .toBack()
         .drag(function onmove(dx, dy, x, y) {
-          self.translate(x - ox, y - oy);
+          processor.translate(x - ox, y - oy);
           ox = x;
           oy = y;
         }, function onstart(x, y) {
@@ -83,14 +95,18 @@ define(function (require) {
       box.node.setAttribute('class', 'processor');
       group.push(box);
 
-      this.translate(processor.getX(), processor.getY());
+      this.updatePosition();
     },
 
-    translate: function (dx, dy) {
+    updatePosition: function () {
+      var processor = this.model;
+      var x = processor.getX();
+      var y = processor.getY();
+
       this.group.forEach(function (e) {
         e.attr({
-          x: e.attr('x') + dx,
-          y: e.attr('y') + dy
+          x: e.data('offsetX') + x,
+          y: e.data('offsetY') + y
         });
       });
     }

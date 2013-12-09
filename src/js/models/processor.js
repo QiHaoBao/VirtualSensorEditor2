@@ -66,6 +66,11 @@ define(function (require) {
     setPosition: function (x, y) {
       this.set('x', x);
       this.set('y', y);
+    },
+    
+    translate: function (dx, dy) {
+      this.set('x', this.get('x') + dx);
+      this.set('y', this.get('y') + dy);
     }
   });
 
