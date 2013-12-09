@@ -6,12 +6,12 @@ define(function (require) {
   var ProcessorView = Backbone.View.extend({
     initialize: function (options) {
       this.paper = options.paper;
-      this.subViews = this.paper.set();
+      this.group = this.paper.set();
     },
 
     renderPorts: function (ports, alignment) {
       var paper = this.paper;
-      var subViews = this.subViews;
+      var group = this.group;
 
       var length = ports.length;
       var halfWidth = config.ui.processor.width / 2;
@@ -26,7 +26,7 @@ define(function (require) {
         ).attr({
           'text-anchor': anchor
         });
-        subViews.push(text);
+        group.push(text);
       });
 
       return  length * config.ui.port.lineHeight;
@@ -35,23 +35,37 @@ define(function (require) {
     render: function () {
       var processor = this.model;
       var paper = this.paper;
-      var subViews = this.subViews;
+      var group = this.group;
 
       var inputHeight = this.renderPorts(processor.inputPorts, 'left');
       var outputHeight = this.renderPorts(processor.outputPorts, 'right');
       var height = Math.max(inputHeight, outputHeight);
 
-      // container box
       var halfWidth = config.ui.processor.width / 2;
-      var box = paper.rect(
-        -halfWidth - config.ui.port.marginLeftRight,
-        -height / 2 - config.ui.port.marginTopBottom,
-        2 * (halfWidth + config.ui.port.marginLeftRight),
-        height + 2 * config.ui.port.marginTopBottom
-      ).toBack();
-      subViews.push(box);
+      var ox, oy; // original x, y
+      var box = paper
+        .rect(
+          -halfWidth - config.ui.port.marginLeftRight,
+          -height / 2 - config.ui.port.marginTopBottom,
+          2 * (halfWidth + config.ui.port.marginLeftRight),
+          height + 2 * config.ui.port.marginTopBottom
+        )
+        .toBack()
+        .attr({
+          fill: config.ui.canvas.background,
+          cursor: 'move'
+        })
+        .drag(function onmove(dx, dy, x, y) {
+          group.translate(x - ox, y - oy);
+          ox = x;
+          oy = y;
+        }, function onstart(x, y) {
+          ox = x;
+          oy = y;
+        });
+      group.push(box);
 
-      subViews.translate(100, 100);
+      group.translate(100, 100);
     }
   });
 
