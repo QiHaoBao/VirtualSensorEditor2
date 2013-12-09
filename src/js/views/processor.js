@@ -47,6 +47,7 @@ define(function (require) {
     },
 
     render: function () {
+      var self = this;
       var processor = this.model;
       var paper = this.paper;
       var group = this.group;
@@ -72,7 +73,7 @@ define(function (require) {
         })
         .toBack()
         .drag(function onmove(dx, dy, x, y) {
-          group.translate(x - ox, y - oy);
+          self.translate(x - ox, y - oy);
           ox = x;
           oy = y;
         }, function onstart(x, y) {
@@ -82,7 +83,16 @@ define(function (require) {
       box.node.setAttribute('class', 'processor');
       group.push(box);
 
-      group.translate(processor.getX(), processor.getY());
+      this.translate(processor.getX(), processor.getY());
+    },
+
+    translate: function (dx, dy) {
+      this.group.forEach(function (e) {
+        e.attr({
+          x: e.attr('x') + dx,
+          y: e.attr('y') + dy
+        });
+      });
     }
   });
 
