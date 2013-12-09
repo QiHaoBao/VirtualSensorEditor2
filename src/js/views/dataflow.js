@@ -22,6 +22,7 @@ define(function (require) {
 
     render: function () {
       this.paper = raphael(this.el, this.width, this.height);
+      this.$el.css({background: config.ui.canvas.background});
       return this;
     },
 

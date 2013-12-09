@@ -25,7 +25,8 @@ define(function (require) {
           (i - length / 2 + 0.5) * config.ui.port.lineHeight,
           port.get('name')
         ).attr({
-          'text-anchor': anchor
+          'text-anchor': anchor,
+          fill: config.ui.port.textFill
         });
         group.push(text);
       });
@@ -46,11 +47,17 @@ define(function (require) {
       var ox, oy; // original x, y
       var box = paper
         .rect(
-          round(-halfWidth - config.ui.port.marginLeftRight) + 0.5,
-          round(-height / 2 - config.ui.port.marginTopBottom) + 0.5,
+          round(-halfWidth - config.ui.port.marginLeftRight),
+          round(-height / 2 - config.ui.port.marginTopBottom),
           round(2 * (halfWidth + config.ui.port.marginLeftRight)),
-          round(height + 2 * config.ui.port.marginTopBottom)
+          round(height + 2 * config.ui.port.marginTopBottom),
+          config.ui.processor.borderRadius
         )
+        .attr({
+          fill: config.ui.processor.fill,
+          cursor: config.ui.processor.cursor,
+          stroke: config.ui.processor.stroke
+        })
         .toBack()
         .drag(function onmove(dx, dy, x, y) {
           group.translate(x - ox, y - oy);
