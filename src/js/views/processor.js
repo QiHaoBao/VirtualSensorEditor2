@@ -52,11 +52,6 @@ define(function (require) {
           round(height + 2 * config.ui.port.marginTopBottom)
         )
         .toBack()
-        .attr({
-          fill: 'white',
-          'fill-opacity': 0,
-          cursor: 'move'
-        })
         .drag(function onmove(dx, dy, x, y) {
           group.translate(x - ox, y - oy);
           ox = x;
@@ -65,6 +60,7 @@ define(function (require) {
           ox = x;
           oy = y;
         });
+      box.node.setAttribute('class', 'processor');
       group.push(box);
 
       group.translate(processor.getX(), processor.getY());
