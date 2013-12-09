@@ -39,7 +39,7 @@ define(function (require) {
     setInputPortValue: function (portName, value) {
       var port = this.inputPorts.findWhere({ name: portName });
       if (port) {
-        port.set('value', value);
+        port.setValue(value);
       } else {
         throw new Error('No such port named ' + portName);
       }
