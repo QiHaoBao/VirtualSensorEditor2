@@ -1,5 +1,8 @@
 define({
   ui: {
+    canvas: {
+      background: 'white'
+    },
     processor: {
       width: 100
     },
@@ -9,7 +12,4 @@ define({
       lineHeight: 15
     }
   },
-  color: {
-    background: '#555'
-  }
 });
