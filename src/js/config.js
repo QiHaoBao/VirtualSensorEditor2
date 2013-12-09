@@ -1,8 +1,5 @@
 define({
   ui: {
-    canvas: {
-      background: 'white'
-    },
     processor: {
       width: 100
     },

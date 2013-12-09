@@ -24,10 +24,12 @@ define(function (require) {
       p1.addInputPort('p1i1');
       p1.addInputPort('p1i2');
       p1.addOutputPort('p1o1');
+      p1.setPosition(100, 100);
 
       var p2 = new Processor();
       p2.addInputPort('p2i1');
       p2.addOutputPort('p2o1');
+      p2.setPosition(300, 200);
 
       var act = new Activity({
         logic: function (inputPorts, outputPorts) {
@@ -40,6 +42,7 @@ define(function (require) {
 
       var l1 = new DataLink(p1.getOutputPort('p1o1'), p2.getInputPort('p2i1'));
       df.addProcessor(p1);
+      df.addProcessor(p2);
       df.addDataLink(l1);
 
       return this;

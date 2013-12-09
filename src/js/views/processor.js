@@ -53,7 +53,8 @@ define(function (require) {
         )
         .toBack()
         .attr({
-          fill: config.ui.canvas.background,
+          fill: 'white',
+          'fill-opacity': 0,
           cursor: 'move'
         })
         .drag(function onmove(dx, dy, x, y) {
