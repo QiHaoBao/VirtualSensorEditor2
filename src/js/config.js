@@ -14,7 +14,13 @@ define({
       marginTopBottom: 10,
       marginLeftRight: 10,
       lineHeight: 15,
-      textFill: '#aaa'
+      text: {
+        fill: '#aaa',
+        hover: {
+          fill: '#eee'
+        }
+      },
+      cursor: 'crosshair'
     }
   }
 });

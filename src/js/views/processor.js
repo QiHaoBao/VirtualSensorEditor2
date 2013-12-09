@@ -20,14 +20,26 @@ define(function (require) {
       var anchor = (alignment === 'left' ? 'start' : 'end');
 
       ports.each(function (port, i) {
-        var text = paper.text(
-          x,
-          (i - length / 2 + 0.5) * config.ui.port.lineHeight,
-          port.get('name')
-        ).attr({
-          'text-anchor': anchor,
-          fill: config.ui.port.textFill
-        });
+        var text = paper
+          .text(
+            x,
+            (i - length / 2 + 0.5) * config.ui.port.lineHeight,
+            port.get('name')
+          )
+          .attr({
+            'text-anchor': anchor,
+            fill: config.ui.port.text.fill,
+            cursor: config.ui.port.cursor
+          })
+          .hover(function () {
+            text.attr({
+              fill: config.ui.port.text.hover.fill
+            });
+          }, function () {
+            text.attr({
+              fill: config.ui.port.text.fill
+            });
+          });
         group.push(text);
       });
 
