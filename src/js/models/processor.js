@@ -19,25 +19,25 @@ define(function (require) {
     },
 
     addInputPort: function (name) {
-      var port = new Port({ name: name });
+      var port = new Port({name: name, type: 'input'});
       this.inputPorts.add(port);
     },
 
     addOutputPort: function (name) {
-      var port = new Port({ name: name });
+      var port = new Port({name: name, type: 'output'});
       this.outputPorts.add(port);
     },
 
     getInputPort: function (name) {
-      return this.inputPorts.findWhere({ name: name });
+      return this.inputPorts.findWhere({name: name });
     },
 
     getOutputPort: function (name) {
-      return this.outputPorts.findWhere({ name: name });
+      return this.outputPorts.findWhere({name: name});
     },
 
     setInputPortValue: function (portName, value) {
-      var port = this.inputPorts.findWhere({ name: portName });
+      var port = this.inputPorts.findWhere({name: portName});
       if (port) {
         port.setValue(value);
       } else {
