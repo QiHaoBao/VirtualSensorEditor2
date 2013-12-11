@@ -14,8 +14,8 @@ define(function (require) {
 
     initialize: function (options) {
       // ports
-      this.inputPorts = new Ports();
-      this.outputPorts = new Ports();
+      this.inputPorts = this.model.getInputPorts();
+      this.outputPorts = this.model.getOutputPorts();
 
       // ports views
       this.inputPortsView = new PortsView({collection: this.inputPorts});

@@ -18,6 +18,14 @@ define(function (require) {
       this.activities = new Activities();
     },
 
+    getInputPorts: function () {
+      return this.inputPorts;
+    },
+
+    getOutputPorts: function () {
+      return this.outputPorts;
+    },
+
     addInputPort: function (name) {
       var port = new Port({name: name, type: 'input'});
       this.inputPorts.add(port);
