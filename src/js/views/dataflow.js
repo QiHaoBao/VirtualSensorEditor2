@@ -1,14 +1,17 @@
 define(function (require) {
-  var _        = require('underscore');
-  var Backbone = require('backbone');
-  var raphael  = require('raphael');
-  var config   = require('config');
-  var Port     = require('models/port');
+  var _             = require('underscore');
+  var Backbone      = require('backbone');
+  var raphael       = require('raphael');
+  var config        = require('config');
+  var Port          = require('models/port');
   var Processor     = require('models/processor');
   var Processors    = require('collections/processors');
   var ProcessorView = require('views/processor');
+  var template      = require('text!templates/dataflow.html');
 
   var DataflowView = Backbone.View.extend({
+    template: _.template(template),
+
     initialize: function (options) {
       options = _.defaults(options, {
         width: $(window).width(),
@@ -17,12 +20,11 @@ define(function (require) {
       this.width = options.width;
       this.height = options.height;
 
-      this.listenTo(this.model, 'processorsAdded', this.addProcessors);
+      this.listenTo(this.model, 'add:processors', this.addProcessors);
     },
 
     render: function () {
-      this.paper = raphael(this.el, this.width, this.height);
-      this.$el.css({background: config.ui.canvas.background});
+      this.$el.html(this.template());
       return this;
     },
 
@@ -32,10 +34,9 @@ define(function (require) {
 
     addProcessor: function (processor) {
       var view = new ProcessorView({
-        model: processor,
-        paper: this.paper
+        model: processor
       });
-      view.render();
+      view.render().$el.appendTo(this.$el);
     }
   });
 
