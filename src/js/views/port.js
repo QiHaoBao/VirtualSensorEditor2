@@ -4,6 +4,8 @@ define(function (require) {
   var template = require('text!templates/port.html');
 
   var PortView = Backbone.View.extend({
+    tagName: 'li',
+    className: 'port',
     template: _.template(template),
 
     render: function () {
