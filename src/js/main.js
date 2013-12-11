@@ -3,7 +3,8 @@ require.config({
     underscore: 'lib/underscore',
     backbone: 'lib/backbone',
     text: 'lib/text',
-    raphael: 'lib/raphael'
+    raphael: 'lib/raphael',
+    jqueryui: 'lib/jquery-ui-1.10.3.custom'
   },
   shim: {
     underscore: {
@@ -15,6 +16,9 @@ require.config({
     },
     raphael: {
       exports: 'Raphael'
+    },
+    jqueryui: {
+      deps: ['jquery']
     }
   },
   urlArgs: "bust=" +  Date.now()
