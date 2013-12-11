@@ -14,13 +14,21 @@ define(function (require) {
     template: _.template(template),
 
     initialize: function (options) {
+      this.paper = options.paper;
+
       // ports
       this.inputPorts = this.model.getInputPorts();
       this.outputPorts = this.model.getOutputPorts();
 
       // ports views
-      this.inputPortsView = new PortsView({collection: this.inputPorts});
-      this.outputPortsView = new PortsView({collection: this.outputPorts});
+      this.inputPortsView = new PortsView({
+        collection: this.inputPorts,
+        paper: this.paper
+      });
+      this.outputPortsView = new PortsView({
+        collection: this.outputPorts,
+        paper: this.paper
+      });
 
       // event listeners
       this.listenTo(this.model, 'change:x', this.updatePosition);

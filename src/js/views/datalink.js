@@ -5,7 +5,6 @@ define(function (require) {
 
   var DataLinkView = Backbone.View.extend({
     initialize: function (options) {
-      var model = options.model;
       var paper = options.paper;
     },
 

@@ -7,7 +7,8 @@ define(function (require) {
   var PortsView = Backbone.View.extend({
     template: _.template(template),
 
-    initialize: function () {
+    initialize: function (options) {
+      this.paper = options.paper;
     },
 
     render: function () {
@@ -20,7 +21,8 @@ define(function (require) {
 
     add: function (model) {
       var view = new PortView({
-        model: model
+        model: model,
+        paper: this.paper
       });
       view.render().$el.appendTo(this.$el);
     }

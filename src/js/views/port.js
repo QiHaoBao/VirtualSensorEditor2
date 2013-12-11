@@ -8,6 +8,10 @@ define(function (require) {
     className: 'port',
     template: _.template(template),
 
+    initialize: function (options) {
+      this.paper = options.paper;
+    },
+
     render: function () {
       this.$el.html(this.template(this.model.attributes));
       return this;

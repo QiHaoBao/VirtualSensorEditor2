@@ -13,18 +13,16 @@ define(function (require) {
     template: _.template(template),
 
     initialize: function (options) {
-      options = _.defaults(options, {
-        width: $(window).width(),
-        height: $(window).height()
-      });
-      this.width = options.width;
-      this.height = options.height;
-
       this.listenTo(this.model, 'add:processors', this.addProcessors);
     },
 
     render: function () {
       this.$el.html(this.template());
+      this.paper = raphael(
+        this.$('.svg-canvas').get(),
+        this.$el.width(),
+        this.$el.height()
+      );
       return this;
     },
 
@@ -34,7 +32,8 @@ define(function (require) {
 
     addProcessor: function (processor) {
       var view = new ProcessorView({
-        model: processor
+        model: processor,
+        paper: this.paper
       });
       view.render().$el.appendTo(this.$el);
     }
