@@ -8,6 +8,8 @@ define(function (require) {
   var template     = require('text!templates/processor.html');
 
   var ProcessorView = Backbone.View.extend({
+    tagName: 'div',
+    className: 'processor',
     template: _.template(template),
 
     initialize: function (options) {
