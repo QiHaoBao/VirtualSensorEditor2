@@ -1,8 +1,11 @@
 define(function (require) {
-  var _        = require('underscore');
-  var Backbone = require('backbone');
-  var config   = require('config');
-  var round    = Math.round;
+  var _            = require('underscore');
+  var Backbone     = require('backbone');
+  var Port         = require('models/port');
+  var DataLinkView = require('views/datalink');
+  var DataLink     = require('models/datalink');
+  var config       = require('config');
+  var round        = Math.round;
 
   var ProcessorView = Backbone.View.extend({
     initialize: function (options) {
@@ -20,6 +23,7 @@ define(function (require) {
       var halfWidth = config.ui.processor.width / 2;
       var x = (alignment === 'left' ? -halfWidth : halfWidth);
       var anchor = (alignment === 'left' ? 'start' : 'end');
+      var path;
 
       ports.each(function (port, i) {
         var y = (i - length / 2 + 0.5) * config.ui.port.lineHeight;
@@ -36,7 +40,8 @@ define(function (require) {
           })
           .data({
             offsetX: x,
-            offsetY: y
+            offsetY: y,
+            model: port,
           })
           .hover(function () {
             text.attr({
@@ -46,6 +51,45 @@ define(function (require) {
             text.attr({
               fill: config.ui.port.text.fill
             });
+          })
+          .drag(function onmove(dx, dy, x2, y2) {
+            path.remove();
+            var x = text.attr('x');
+            var y = text.attr('y');
+            if (alignment === 'left') {
+              path = DataLinkView.buildPath(paper, x2, y2, x - 10, y);
+            } else {
+              path = DataLinkView.buildPath(paper, x + 10, y, x2, y2);
+            }
+          }, function onstart(x2, y2) {
+            var x = text.attr('x');
+            var y = text.attr('y');
+            if (alignment === 'left') {
+              path = DataLinkView.buildPath(paper, x2, y2, x - 10, y);
+            } else {
+              path = DataLinkView.buildPath(paper, x + 10, y, x2, y2);
+            }
+          }, function onend(x2, y2) {
+            path.remove();
+            var element = paper.getElementByPoint(x2, y2);
+            var port2 = element.data('model');
+            var port2View = element.data('view');
+            if (port2 instanceof Port) {
+              // swap port and port2 if port is ouput port
+              if (port.getType() === 'output') {
+                var t = port;
+                port = port2;
+                port2 = port;
+              }
+              if (port2.getType() === 'output') {
+                var datalink = new DataLink(port, port2);
+                var datalinkView = new DataLinkView({
+                  model: datalink,
+                  paper: paper
+                });
+                datalinkView.render();
+              }
+            }
           });
         group.push(text);
       });
@@ -94,6 +138,7 @@ define(function (require) {
         });
       box.node.setAttribute('class', 'processor');
       group.push(box);
+      group.toBack();
 
       this.updatePosition();
     },

@@ -3,9 +3,17 @@ define(function (require) {
   var Backbone = require('backbone');
 
   var DataLink = Backbone.Model.extend({
-    initialize: function (receiveFrom, sendTo) {
-      this.set('receiveFrom', receiveFrom);
-      this.set('sendTo', sendTo);
+    initialize: function (sender, receiver) {
+      this.set('sender', sender);
+      this.set('receiver', receiver);
+    },
+
+    getSender: function () {
+      return this.get('sender');
+    },
+
+    getReceiver: function () {
+      return this.get('receiver');
     }
   });
 

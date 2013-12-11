@@ -21,6 +21,9 @@ define({
         }
       },
       cursor: 'crosshair'
+    },
+    datalink: {
+      stroke: '#aaa'
     }
   }
 });

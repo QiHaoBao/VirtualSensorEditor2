@@ -3,6 +3,10 @@ define(function (require) {
   var Backbone = require('backbone');
 
   var Port = Backbone.Model.extend({
+    getType: function () {
+      return this.get('type');
+    },
+
     getName: function () {
       return this.get('name');
     },
