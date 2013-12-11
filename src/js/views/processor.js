@@ -6,6 +6,7 @@ define(function (require) {
   var DataLinkView = require('views/datalink');
   var DataLink     = require('models/datalink');
   var template     = require('text!templates/processor.html');
+  require('jqueryui');
 
   var ProcessorView = Backbone.View.extend({
     tagName: 'div',
@@ -27,7 +28,9 @@ define(function (require) {
     },
 
     render: function () {
-      this.$el.html(this.template(this.model.attributes));
+      this.$el
+        .html(this.template(this.model.attributes))
+        .draggable();
 
       // cache jquery objects
       this.$inputPorts = this.$('.input.ports');
@@ -37,7 +40,16 @@ define(function (require) {
       this.inputPortsView.setElement(this.$inputPorts).render();
       this.outputPortsView.setElement(this.$outputPorts).render();
 
+      this.updatePosition();
+
       return this;
+    },
+
+    updatePosition: function () {
+      this.$el.css({
+        left: this.model.getX(),
+        top: this.model.getY()
+      });
     }
   });
 
