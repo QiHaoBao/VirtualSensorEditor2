@@ -14,10 +14,6 @@ define(function (require) {
       // render template
       this.$el.html(this.template());
 
-      // cache selectors
-      this.$inputPorts = this.$('.input.ports');
-      this.$outputPorts = this.$('.output.ports');
-
       // render ports
       this.collection.each(this.add, this);
     },
@@ -26,7 +22,7 @@ define(function (require) {
       var view = new PortView({
         model: model
       });
-      view.render().$el.appendTo(this.$inputPorts);
+      view.render().$el.appendTo(this.$el);
     }
   });
 
