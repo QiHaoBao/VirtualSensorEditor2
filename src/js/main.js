@@ -22,7 +22,7 @@ require.config({
 
 require(['views/app'], function (App) {
   var app = new App({
-    el: 'body'
+    el: '.dataflow'
   });
   app.render();
 });
