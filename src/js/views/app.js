@@ -1,4 +1,5 @@
 define(function (require) {
+  var _            = require('underscore');
   var Backbone     = require('backbone');
   var NavbarView   = require('views/navbar');
   var Processor    = require('models/processor');
@@ -6,8 +7,11 @@ define(function (require) {
   var DataflowView = require('views/dataflow');
   var DataLink     = require('models/datalink');
   var Activity     = require('models/activity');
+  var template     = require('text!templates/app.html');
 
   var App = Backbone.View.extend({
+    template: _.template(template),
+
     initialize: function () {
       this.dataflow = new Dataflow();
       this.dataflowView = new DataflowView({
@@ -16,7 +20,8 @@ define(function (require) {
     },
 
     render: function () {
-      this.dataflowView.setElement(this.$el).render();
+      this.$el.html(this.template());
+      this.dataflowView.setElement(this.$('.dataflow')).render();
       
       var df = this.dataflow;
 

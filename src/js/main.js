@@ -26,7 +26,7 @@ require.config({
 
 require(['views/app'], function (App) {
   var app = new App({
-    el: '.dataflow'
+    el: '.app'
   });
   app.render();
 });
