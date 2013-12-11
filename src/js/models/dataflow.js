@@ -18,7 +18,7 @@ define(function (require) {
     addProcessors: function (processors) {
       this.processors.add(processors);
       this.buildDependencyGraph();
-      this.trigger('processorsAdded', processors);
+      this.trigger('add:processors', processors);
     },
 
     buildDependencyGraph: function (processors) {
