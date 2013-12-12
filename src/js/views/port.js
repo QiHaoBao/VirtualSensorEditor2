@@ -20,6 +20,7 @@ define(function (require) {
       var $el = this.$el;
       $el
         .html(this.template(this.model.attributes))
+        .data('view', this)
         .draggable({
           helper: function () {
             return $('<div/>').addClass('port-draggable-helper');

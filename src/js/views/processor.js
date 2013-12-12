@@ -38,6 +38,7 @@ define(function (require) {
     render: function () {
       this.$el
         .html(this.template(this.model.attributes))
+        .data('view', this)
         .draggable();
 
       // cache jquery objects
