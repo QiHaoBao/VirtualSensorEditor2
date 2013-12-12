@@ -19,7 +19,7 @@ define(function (require) {
     render: function () {
       this.$el.html(this.template());
       this.paper = raphael(
-        this.$('.svg-canvas').get(),
+        this.$('.svg-canvas').get(0),
         this.$el.width(),
         this.$el.height()
       );
