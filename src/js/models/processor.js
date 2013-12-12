@@ -27,12 +27,20 @@ define(function (require) {
     },
 
     addInputPort: function (name) {
-      var port = new Port({name: name, type: 'input'});
+      var port = new Port({
+        type: 'input',
+        name: name,
+        parent: this
+      });
       this.inputPorts.add(port);
     },
 
     addOutputPort: function (name) {
-      var port = new Port({name: name, type: 'output'});
+      var port = new Port({
+        type: 'output',
+        name: name,
+        parent: this
+      });
       this.outputPorts.add(port);
     },
 
