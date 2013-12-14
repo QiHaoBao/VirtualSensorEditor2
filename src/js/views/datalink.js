@@ -5,13 +5,28 @@ define(function (require) {
 
   var DataLinkView = Backbone.View.extend({
     initialize: function (options) {
-      var paper = options.paper;
+      this.paper = options.paper;
+      this.dataflowView = options.dataflowView;
+      this.listenTo(this.model, 'change:position', this.render);
     },
 
     render: function () {
       var datalink = this.model;
+
       var sender = datalink.getSender();
       var receiver = datalink.getReceiver();
+
+      var senderPosition = this.dataflowView.getPortPosition(sender);
+      var receiverPosition = this.dataflowView.getPortPosition(receiver);
+
+      if (this.path) {
+        this.path.remove();
+      }
+      this.path = DataLinkView.buildPath(
+        this.paper,
+        senderPosition.x, senderPosition.y,
+        receiverPosition.x, receiverPosition.y
+      );
     }
   }, {
     buildPath: function (paper, sx, sy, ex, ey) {

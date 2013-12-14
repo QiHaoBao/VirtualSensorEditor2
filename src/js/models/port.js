@@ -3,8 +3,18 @@ define(function (require) {
   var Backbone = require('backbone');
 
   var Port = Backbone.Model.extend({
-    getParent: function () {
-      return this.get('parent');
+    initialize: function () {
+      var processor = this.getProcessor();
+      this.listenTo(processor, 'change:x', this.triggerChangePosition);
+      this.listenTo(processor, 'change:y', this.triggerChangePosition);
+    },
+
+    triggerChangePosition: function () {
+      this.trigger('change:position');
+    },
+
+    getProcessor: function () {
+      return this.get('processor');
     },
 
     getType: function () {

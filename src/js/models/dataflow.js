@@ -7,7 +7,7 @@ define(function (require) {
 
   var Dataflow = Backbone.Model.extend({
     initialize: function () {
-      this.processors = new Processors();
+      this.processors = new Processors({dataflow: this});
       this.datalinks = new DataLinks();
     },
 
@@ -16,6 +16,10 @@ define(function (require) {
     },
 
     addProcessors: function (processors) {
+      _.each(processors, function (p) {
+        p.setDataflow(this);
+      }, this);
+
       this.processors.add(processors);
       this.buildDependencyGraph();
       this.trigger('add:processors', processors);
@@ -25,8 +29,8 @@ define(function (require) {
     },
 
     addDataLink: function (datalink) {
-      // TODO: check for existence of processors and ports
       this.datalinks.add(datalink);
+      this.trigger('add:datalink', datalink);
     }
 
   });

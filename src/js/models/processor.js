@@ -18,6 +18,14 @@ define(function (require) {
       this.activities = new Activities();
     },
 
+    getDataflow: function () {
+      return this.get('dataflow');
+    },
+
+    setDataflow: function (dataflow) {
+      this.set('dataflow', dataflow);
+    },
+
     getInputPorts: function () {
       return this.inputPorts;
     },
@@ -30,7 +38,7 @@ define(function (require) {
       var port = new Port({
         type: 'input',
         name: name,
-        parent: this
+        processor: this
       });
       this.inputPorts.add(port);
     },
@@ -39,7 +47,7 @@ define(function (require) {
       var port = new Port({
         type: 'output',
         name: name,
-        parent: this
+        processor: this
       });
       this.outputPorts.add(port);
     },

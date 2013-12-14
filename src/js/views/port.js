@@ -1,6 +1,7 @@
 define(function (require) {
   var _            = require('underscore');
   var Backbone     = require('backbone');
+  var DataLink     = require('models/datalink');
   var DataLinkView = require('views/datalink');
   var template     = require('text!templates/port.html');
   require('jqueryui');
@@ -17,10 +18,13 @@ define(function (require) {
     render: function () {
       var path;
       var paper = this.paper;
+      var port = this.model;
+      var portType = port.getType();
       var $el = this.$el;
       $el
         .html(this.template(this.model.attributes))
         .data('view', this)
+        .attr('id', 'port-' + this.model.cid)
         .draggable({
           helper: function () {
             return $('<div/>').addClass('port-draggable-helper');
@@ -38,11 +42,37 @@ define(function (require) {
               path.remove();
               path = null;
             }
-            path = DataLinkView.buildPath(paper, portX, portY, cursorX, cursorY);
+            if (portType === 'input') {
+              path = DataLinkView.buildPath(paper, cursorX, cursorY, portX, portY);
+            } else {
+              path = DataLinkView.buildPath(paper, portX, portY, cursorX, cursorY);
+            }
           },
           stop: function () {
             path.remove();
             path = null;
+          }
+        })
+        .droppable({
+          accept: portType === 'input' ? '.output.ports > .port' : '.input.ports > .port',
+          hoverClass: 'droppable-hover',
+          drop: function (event, ui) {
+            var $originPort = $(ui.draggable);
+            var originPortView = $originPort.data('view');
+            var originPort = originPortView.model;
+
+            var sender, receiver;
+            if (portType === 'input') {
+              sender = originPort;
+              receiver = port;
+            } else {
+              receiver = originPort;
+              sender = port;
+            }
+            var datalink = new DataLink(sender, receiver);
+
+            var dataflow = port.getProcessor().getDataflow();
+            dataflow.addDataLink(datalink);
           }
         });
       return this;

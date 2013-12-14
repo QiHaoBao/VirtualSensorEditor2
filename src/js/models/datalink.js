@@ -6,6 +6,8 @@ define(function (require) {
     initialize: function (sender, receiver) {
       this.set('sender', sender);
       this.set('receiver', receiver);
+      this.listenTo(sender, 'change:position', this.triggerChangePosition);
+      this.listenTo(receiver, 'change:position', this.triggerChangePosition);
     },
 
     getSender: function () {
@@ -14,6 +16,10 @@ define(function (require) {
 
     getReceiver: function () {
       return this.get('receiver');
+    },
+
+    triggerChangePosition: function () {
+      this.trigger('change:position');
     }
   });
 

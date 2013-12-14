@@ -36,10 +36,16 @@ define(function (require) {
     },
 
     render: function () {
+      var processor = this.model;
+
       this.$el
         .html(this.template(this.model.attributes))
         .data('view', this)
-        .draggable();
+        .draggable({
+          drag: function (event, ui) {
+            processor.setPosition(ui.position.left, ui.position.top);
+          }
+        });
 
       // cache jquery objects
       this.$inputPorts = this.$('.input.ports');
