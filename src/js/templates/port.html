@@ -1,1 +1,5 @@
-<%= name %>
+<% if (type === 'input') { %>
+  • <%= name %>
+<% } else { %>
+  <%= name %> •
+<% } %>
