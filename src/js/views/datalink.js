@@ -32,9 +32,11 @@ define(function (require) {
     buildPath: function (paper, sx, sy, ex, ey) {
       var pathString = [
         'M', sx, ',', sy, ' ',
+        'L', sx + 20, ',', sy, ' ',
         'C', sx + 100, ',', sy, ' ',
              ex - 100, ',', ey, ' ',
-             ex, ',', ey
+             ex - 20, ',', ey, ' ',
+        'L', ex, ',', ey
       ].join('');
       return paper.path(pathString).attr('stroke', config.ui.datalink.stroke);
     }
