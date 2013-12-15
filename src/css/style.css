@@ -28,10 +28,14 @@ html, body {
   display: inline-block;
   position: absolute;
   background: #333;
-  padding: 8px 10px;
+  padding: 8px 5px;
   border-radius: 5px;
   cursor: move;
   font-family: 'monospace', 'courier', 'consola';
+}
+
+.processor .body {
+  float: left;
 }
 
 .ports {
@@ -63,3 +67,4 @@ html, body {
 .port.droppable-hover {
   color: #eee;
 }
+
