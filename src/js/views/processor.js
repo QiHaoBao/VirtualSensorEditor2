@@ -44,6 +44,9 @@ define(function (require) {
         .draggable({
           drag: function (event, ui) {
             processor.setPosition(ui.position.left, ui.position.top);
+          },
+          stop: function (event, ui) {
+            processor.setPosition(ui.position.left, ui.position.top);
           }
         });
 
