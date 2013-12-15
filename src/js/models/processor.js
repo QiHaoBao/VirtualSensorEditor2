@@ -16,6 +16,13 @@ define(function (require) {
       this.inputPorts = new Ports();
       this.outputPorts = new Ports();
       this.activities = new Activities();
+
+      this.listenTo(this.inputPorts, 'change:value', function (port) {
+        this.trigger('change:input-port-value', port);
+      });
+      this.listenTo(this.outputPorts, 'change:value', function (port) {
+        this.trigger('change:output-port-value', port);
+      });
     },
 
     getDataflow: function () {
@@ -69,6 +76,15 @@ define(function (require) {
       }
     },
 
+    setOutputPortValue: function (portName, value) {
+      var port = this.outputPorts.findWhere({name: portName});
+      if (port) {
+        port.setValue(value);
+      } else {
+        throw new Error('No such port named ' + portName);
+      }
+    },
+
     addActivity: function (act) {
       this.activities.add(act);
     },
@@ -88,8 +104,10 @@ define(function (require) {
     },
 
     setPosition: function (x, y) {
-      this.set('x', x);
-      this.set('y', y);
+      this.set({
+        x: x,
+        y: y
+      });
     },
     
     translate: function (dx, dy) {
