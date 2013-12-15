@@ -16,17 +16,22 @@ define(function (require) {
       var sender = datalink.getSender();
       var receiver = datalink.getReceiver();
 
-      var senderPosition = this.dataflowView.getPortPosition(sender);
-      var receiverPosition = this.dataflowView.getPortPosition(receiver);
+      // delay the computation of ports' positions to make sure that the 
+      // processors' positions have been updated in the DOM
+      var self = this;
+      setTimeout(function () {
+        var senderPosition = self.dataflowView.getPortPosition(sender);
+        var receiverPosition = self.dataflowView.getPortPosition(receiver);
 
-      if (this.path) {
-        this.path.remove();
-      }
-      this.path = DataLinkView.buildPath(
-        this.paper,
-        senderPosition.x, senderPosition.y,
-        receiverPosition.x, receiverPosition.y
-      );
+        if (self.path) {
+          self.path.remove();
+        }
+        self.path = DataLinkView.buildPath(
+          self.paper,
+          senderPosition.x, senderPosition.y,
+          receiverPosition.x, receiverPosition.y
+        );
+      }, 0);
     }
   }, {
     buildPath: function (paper, sx, sy, ex, ey) {
