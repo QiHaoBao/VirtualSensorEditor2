@@ -85,6 +85,14 @@ define(function (require) {
       }
     },
 
+    getInputPortValue: function (portName) {
+      return this.inputPorts.findWhere({name: portName}).getValue();
+    },
+
+    getOutputPortValue: function (portName) {
+      return this.outputPorts.findWhere({name: portName}).getValue();
+    },
+
     addActivity: function (act) {
       this.activities.add(act);
     },

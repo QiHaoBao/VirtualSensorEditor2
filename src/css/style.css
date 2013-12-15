@@ -32,10 +32,14 @@ html, body {
   border-radius: 5px;
   cursor: move;
   font-family: 'monospace', 'courier', 'consola';
+  font-size: 10px;
+  line-height: 18px;
 }
 
 .processor .body {
   float: left;
+  color: #aaa;
+  padding: 0 10px;
 }
 
 .ports {
@@ -43,21 +47,19 @@ html, body {
   padding: 0;
   margin: 0;
   color: #aaa;
-  font-size: 10px;
 }
 
 .ports.input {
   float: left;
-  margin-right: 15px;
+  margin-right: 5px;
 }
 
 .ports.output {
   float: right;
-  margin-left: 15px;
+  margin-left: 5px;
 }
 
 .port {
-  line-height: 18px;
   cursor: crosshair;
 }
 .port:hover {

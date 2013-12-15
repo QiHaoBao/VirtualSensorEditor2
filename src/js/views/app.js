@@ -5,6 +5,7 @@ define(function (require) {
   var Processor    = require('models/processor');
   var Dataflow     = require('models/dataflow');
   var DataflowView = require('views/dataflow');
+  var PhysicalSensor = require('models/physical_sensor');
   var DataLink     = require('models/datalink');
   var Activity     = require('models/activity');
   var template     = require('text!templates/app.html');
@@ -36,6 +37,10 @@ define(function (require) {
       p2.addOutputPort('p2o1');
       p2.setPosition(300, 200);
 
+      var p3 = new PhysicalSensor();
+      p3.setPosition(400, 300);
+      p3.setValue(60);
+
       var act = new Activity({
         logic: function (inputPorts, outputPorts) {
           var i1 = inputPorts.findWhere({ name: 'p2i1' });
@@ -48,6 +53,7 @@ define(function (require) {
       var l1 = new DataLink(p1.getOutputPort('p1o1'), p2.getInputPort('p2i1'));
       df.addProcessor(p1);
       df.addProcessor(p2);
+      df.addProcessor(p3);
       df.addDataLink(l1);
 
       return this;

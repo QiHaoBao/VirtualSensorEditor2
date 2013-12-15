@@ -1,15 +1,17 @@
 define(function (require) {
-  var _             = require('underscore');
-  var Backbone      = require('backbone');
-  var raphael       = require('raphael');
-  var config        = require('config');
-  var Port          = require('models/port');
-  var Processor     = require('models/processor');
-  var Processors    = require('collections/processors');
-  var ProcessorView = require('views/processor');
-  var DataLink      = require('models/datalink');
-  var DataLinkView  = require('views/datalink');
-  var template      = require('text!templates/dataflow.html');
+  var _                  = require('underscore');
+  var Backbone           = require('backbone');
+  var raphael            = require('raphael');
+  var config             = require('config');
+  var Port               = require('models/port');
+  var Processor          = require('models/processor');
+  var Processors         = require('collections/processors');
+  var ProcessorView      = require('views/processor');
+  var PhysicalSensor     = require('models/physical_sensor');
+  var PhysicalSensorView = require('views/physical_sensor');
+  var DataLink           = require('models/datalink');
+  var DataLinkView       = require('views/datalink');
+  var template           = require('text!templates/dataflow.html');
 
   var DataflowView = Backbone.View.extend({
     template: _.template(template),
@@ -34,9 +36,15 @@ define(function (require) {
     },
 
     addProcessor: function (processor) {
-      var view = new ProcessorView({
+      var View;
+      if (processor instanceof PhysicalSensor) {
+        View = PhysicalSensorView;
+      } else {
+        View = ProcessorView;
+      }
+      var view = new View({
         model: processor,
-        paper: this.paper,
+        paper: this.paper
       });
       view.render().$el.appendTo(this.$el);
     },
