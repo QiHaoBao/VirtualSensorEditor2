@@ -76,7 +76,11 @@ define(function (require) {
     updatePortValues: function () {
       var $outputPortValues = this.$('.output-port-values').html('');
       this.outputPorts.each(function (port) {
-        $('<li/>').text(port.getValue()).appendTo($outputPortValues);
+        var value = port.getValue();
+        if (_.isNumber(value)) {
+          value = value.toFixed(1);
+        }
+        $('<li/>').text(value).appendTo($outputPortValues);
       });
     }
   });
