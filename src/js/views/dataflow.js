@@ -8,7 +8,6 @@ define(function (require) {
   var Processors         = require('collections/processors');
   var ProcessorView      = require('views/processor');
   var PhysicalSensor     = require('models/physical_sensor');
-  var PhysicalSensorView = require('views/physical_sensor');
   var DataLink           = require('models/datalink');
   var DataLinkView       = require('views/datalink');
   var template           = require('text!templates/dataflow.html');
@@ -36,13 +35,7 @@ define(function (require) {
     },
 
     addProcessor: function (processor) {
-      var View;
-      if (processor instanceof PhysicalSensor) {
-        View = PhysicalSensorView;
-      } else {
-        View = ProcessorView;
-      }
-      var view = new View({
+      var view = new ProcessorView({
         model: processor,
         paper: this.paper
       });
