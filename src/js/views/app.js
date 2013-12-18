@@ -64,17 +64,17 @@ define(function (require) {
 
       var p1 = new PhysicalSensor();
       p1.setValue(10);
-      p1.setPosition(100, 100);
+      p1.setPosition(300, 100);
 
       var p2 = new PhysicalSensor();
       p2.setValue(20);
-      p2.setPosition(100, 200);
+      p2.setPosition(300, 200);
 
       var p3 = new Processor();
       p3.addInputPort('a');
       p3.addInputPort('b');
       p3.addOutputPort('out');
-      p3.setPosition(400, 150);
+      p3.setPosition(600, 150);
 
       var act = new Activity({
         logic: function (inputPorts, outputPorts) {
@@ -88,13 +88,13 @@ define(function (require) {
 
       var p4 = new PhysicalSensor();
       p4.setValue(30);
-      p4.setPosition(400, 250);
+      p4.setPosition(600, 250);
 
       var p5 = new Processor();
       p5.addInputPort('a');
       p5.addInputPort('b');
       p5.addOutputPort('out');
-      p5.setPosition(700, 175);
+      p5.setPosition(900, 175);
 
       var act = new Activity({
         logic: function (inputPorts, outputPorts) {

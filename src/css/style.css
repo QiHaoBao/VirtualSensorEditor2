@@ -80,7 +80,7 @@ html, body {
 
 .panel {
   position: absolute;
-  right: 10px;
+  left: 10px;
   top: 10px;
   width: 120px;
   /*background: #333;*/
