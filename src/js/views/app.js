@@ -71,7 +71,7 @@ define(function (require) {
       p3.addInputPort('a');
       p3.addInputPort('b');
       p3.addOutputPort('out');
-      p3.setPosition(200, 150);
+      p3.setPosition(400, 150);
 
       var act = new Activity({
         logic: function (inputPorts, outputPorts) {

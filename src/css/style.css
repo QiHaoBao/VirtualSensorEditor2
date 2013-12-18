@@ -25,20 +25,18 @@ html, body {
 }
 
 .processor {
-  position: relative;
-  display: inline-block;
+  position: absolute !important;
   font-family: 'monospace', 'courier', 'consola';
   font-size: 10px;
   line-height: 18px;
+  cursor: move;
 }
 
 .processor .body {
   display: inline-block;
-  /*position: absolute;*/
   background: #333;
   padding: 8px 5px;
   border-radius: 5px;
-  cursor: move;
 }
 
 .ports {
@@ -50,12 +48,12 @@ html, body {
 
 .ports.input {
   float: left;
-  margin-right: 5px;
+  margin-right: 15px;
 }
 
 .ports.output {
   float: right;
-  margin-left: 5px;
+  margin-left: 15px;
 }
 
 .port {
