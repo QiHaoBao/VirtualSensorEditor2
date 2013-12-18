@@ -11,6 +11,10 @@ define(function (require) {
       logic: function (inputPorts, outputPorts) {
         // empty logic
       }
+    },
+
+    update: function (inputPorts, outputPorts) {
+      this.get('logic')(inputPorts, outputPorts);
     }
   });
 
