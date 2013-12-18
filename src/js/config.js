@@ -23,7 +23,7 @@ define({
       cursor: 'crosshair'
     },
     datalink: {
-      stroke: '#aaa'
+      stroke: '#777'
     }
   }
 });
