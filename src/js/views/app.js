@@ -30,6 +30,7 @@ define(function (require) {
       p1.addInputPort('p1i1');
       p1.addInputPort('p1i2');
       p1.addOutputPort('p1o1');
+      p1.setOutputPortValue('p1o1', 10);
       p1.setPosition(100, 100);
 
       var p2 = new Processor();
@@ -55,6 +56,9 @@ define(function (require) {
       df.addProcessor(p2);
       df.addProcessor(p3);
       df.addDataLink(l1);
+      df.updateValues();
+      console.log(p2.getOutputPortValue('p2o1'));
+
 
       return this;
     }
