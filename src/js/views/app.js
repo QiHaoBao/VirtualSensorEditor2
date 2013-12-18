@@ -1,14 +1,15 @@
 define(function (require) {
-  var _            = require('underscore');
-  var Backbone     = require('backbone');
-  var NavbarView   = require('views/navbar');
-  var Processor    = require('models/processor');
-  var Dataflow     = require('models/dataflow');
-  var DataflowView = require('views/dataflow');
+  var _              = require('underscore');
+  var Backbone       = require('backbone');
+  var NavbarView     = require('views/navbar');
+  var Processor      = require('models/processor');
+  var Dataflow       = require('models/dataflow');
+  var DataflowView   = require('views/dataflow');
   var PhysicalSensor = require('models/physical_sensor');
-  var DataLink     = require('models/datalink');
-  var Activity     = require('models/activity');
-  var template     = require('text!templates/app.html');
+  var DataLink       = require('models/datalink');
+  var Activity       = require('models/activity');
+  var PanelView      = require('views/panel');
+  var template       = require('text!templates/app.html');
 
   var App = Backbone.View.extend({
     template: _.template(template),
@@ -18,10 +19,12 @@ define(function (require) {
       this.dataflowView = new DataflowView({
         model: this.dataflow
       });
+      this.panelView = new PanelView();
     },
 
     render: function () {
       this.$el.html(this.template());
+      this.panelView.setElement(this.$('.panel')).render();
       this.dataflowView.setElement(this.$('.dataflow')).render();
       
       var df = this.dataflow;

@@ -1,0 +1,14 @@
+<div class="available-sensors">
+  <% _.each(sensorTypes, function (type) { %>
+    <h3><%= type %></h3>
+    <div>
+      <ul>
+        <% _.each(sensorIds, function (id) { %>
+          <li>
+            <%= labelsMapping[id] %>
+          </li>
+        <% }); %>
+      </ul>
+    </div>
+  <% }); %>
+</div>

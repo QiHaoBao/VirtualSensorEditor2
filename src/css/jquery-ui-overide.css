@@ -1,0 +1,11 @@
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+  background: #333;
+  color: #aaa;
+  border: 1px solid #555;
+}
+
+.ui-widget-content {
+  background: #333;
+  color: #aaa;
+  border: 1px solid #555;
+}
