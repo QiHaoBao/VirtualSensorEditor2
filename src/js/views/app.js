@@ -170,12 +170,16 @@ define(function (require) {
               $('.sensor[data-type="' + type + '"][data-id="' + entry.device_id + '"]').css({
                 opacity: 1
               });
-              var processor = processors.findWhere({
+              // TODO: use the combination of device id and sensor type as
+              // the id of the processor, for quick find
+              var ps = processors.where({
                 deviceId: entry.device_id.toString(),
                 type: entry.sensor_type
               });
-              if (processor) {
-                processor.setValue(entry.value);
+              if (ps.length) {
+                _.each(ps, function (p) {
+                  p.setValue(entry.value);
+                });
               }
             });
             callback();
