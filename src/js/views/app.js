@@ -9,6 +9,8 @@ define(function (require) {
   var DataLink       = require('models/datalink');
   var Activity       = require('models/activity');
   var PanelView      = require('views/panel');
+  var config         = require('config');
+  var api            = require('api');
   var template       = require('text!templates/app.html');
 
   var App = Backbone.View.extend({
@@ -134,7 +136,52 @@ define(function (require) {
       }, 1000);
 
 
+      var fetchSensorValues = _.bind(this.fetchSensorValues, this);
+      (function updateSensorValues() {
+        fetchSensorValues(function () {
+          setTimeout(updateSensorValues, 5000);
+        });
+      })();
+
       return this;
+    },
+
+    fetchSensorValues: function (callback) {
+      var dataflow = this.dataflow;
+      var processors = dataflow.getProcessors();
+      var timestamp = Date.now();
+
+
+      _.each(config.sensors.types, function (type) {
+        api.getLastReadingsFromAllDevices({
+          timestamp: timestamp,
+          type: type,
+          callback: function (data) {
+            // sample data:
+            // [
+            //   {"timestamp":1387403993000,"sensor_type":"temp","value":515,"device_id":"17020003"},
+            //   {"timestamp":1387403976000,"sensor_type":"temp","value":516,"device_id":"1712bbb9"}
+            // ]
+            $('.sensor[data-type="' + type + '"]').css({
+              opacity: 0.3
+            });
+
+            _.each(data, function (entry) {
+              $('.sensor[data-type="' + type + '"][data-id="' + entry.device_id + '"]').css({
+                opacity: 1
+              });
+              var processor = processors.findWhere({
+                deviceId: entry.device_id.toString(),
+                type: entry.sensor_type
+              });
+              if (processor) {
+                processor.setValue(entry.value);
+              }
+            });
+            callback();
+          }
+        });
+      });
     }
   });
 

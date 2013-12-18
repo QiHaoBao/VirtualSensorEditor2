@@ -9,6 +9,14 @@ define(function (require) {
       this.addOutputPort('out');
     },
 
+    getDeviceId: function () {
+      return this.get('deviceId');
+    },
+
+    getType: function () {
+      return this.get('type');
+    },
+
     getValue: function () {
       return this.getOutputPortValue('out');
     },

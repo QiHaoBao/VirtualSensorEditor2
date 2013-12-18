@@ -29,8 +29,16 @@ define(function (require) {
           accept: '.sensor',
           drop: function (event, ui) {
             var $sensor = ui.helper;
-            var sensor = new PhysicalSensor();
-            sensor.setPosition(ui.position.left, ui.position.top);
+
+            var type = $sensor.data('type');
+            var deviceId = $sensor.data('id').toString();
+
+            var sensor = new PhysicalSensor({
+              type: type,
+              deviceId: deviceId,
+              x: ui.position.left,
+              y: ui.position.top
+            });
             dataflow.addProcessor(sensor);
           }
         });

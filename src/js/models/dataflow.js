@@ -25,6 +25,10 @@ define(function (require) {
       this.trigger('add:processors', processors);
     },
 
+    getProcessors: function () {
+      return this.processors;
+    },
+
     buildDependencyGraph: function () {
       var descendents = this.descendents = {};
       var indegree = this.indegree = {};
