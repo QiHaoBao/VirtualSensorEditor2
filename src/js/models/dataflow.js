@@ -63,8 +63,8 @@ define(function (require) {
 
     updateValues: function () {
       // cache properties for faster access
-      var indegree = this.indegree;
-      var descendents = this.descendents;
+      var indegree = _.clone(this.indegree);
+      var descendents = _.clone(this.descendents);
       var processors = this.processors;
 
       // for each processor, if it has an indegree of 0, then push it into a queue

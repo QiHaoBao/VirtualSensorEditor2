@@ -33,6 +33,8 @@ define(function (require) {
       // event listeners
       this.listenTo(this.model, 'change:x', this.updatePosition);
       this.listenTo(this.model, 'change:y', this.updatePosition);
+
+      this.listenTo(this.outputPorts, 'change:value', this.updatePortValues);
     },
 
     render: function () {
@@ -58,12 +60,8 @@ define(function (require) {
       this.inputPortsView.setElement(this.$inputPorts).render();
       this.outputPortsView.setElement(this.$outputPorts).render();
 
-      var $outputPortValues = this.$('.output-port-values');
-      this.outputPorts.each(function (port) {
-        $('<li/>').text(port.getValue()).appendTo($outputPortValues);
-      });
-
       this.updatePosition();
+      this.updatePortValues();
 
       return this;
     },
@@ -72,6 +70,13 @@ define(function (require) {
       this.$el.css({
         left: this.model.getX(),
         top: this.model.getY()
+      });
+    },
+
+    updatePortValues: function () {
+      var $outputPortValues = this.$('.output-port-values').html('');
+      this.outputPorts.each(function (port) {
+        $('<li/>').text(port.getValue()).appendTo($outputPortValues);
       });
     }
   });

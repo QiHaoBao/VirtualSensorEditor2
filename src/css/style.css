@@ -25,21 +25,20 @@ html, body {
 }
 
 .processor {
+  position: relative;
   display: inline-block;
-  position: absolute;
-  background: #333;
-  padding: 8px 5px;
-  border-radius: 5px;
-  cursor: move;
   font-family: 'monospace', 'courier', 'consola';
   font-size: 10px;
   line-height: 18px;
 }
 
 .processor .body {
-  float: left;
-  color: #aaa;
-  padding: 0 10px;
+  display: inline-block;
+  /*position: absolute;*/
+  background: #333;
+  padding: 8px 5px;
+  border-radius: 5px;
+  cursor: move;
 }
 
 .ports {
@@ -71,10 +70,11 @@ html, body {
 }
 
 .output-port-values {
+  width: 0;
+  display: inline-block;
+  vertical-align: top;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 7px 0 0 -2px;
   color: yellow;
-  position: absolute;
-  right: -15px;
 }
