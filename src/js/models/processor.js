@@ -97,6 +97,15 @@ define(function (require) {
       this.activities.add(act);
     },
 
+    updateOutputPortValues: function () {
+      var inputPorts = this.inputPorts;
+      var outputPorts = this.outputPorts;
+
+      this.activities.each(function (activity) {
+        activity.update(inputPorts, outputPorts);
+      });
+    },
+
     getX: function () {
       return this.get('x');
     },
