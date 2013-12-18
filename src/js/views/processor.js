@@ -58,6 +58,11 @@ define(function (require) {
       this.inputPortsView.setElement(this.$inputPorts).render();
       this.outputPortsView.setElement(this.$outputPorts).render();
 
+      var $outputPortValues = this.$('.output-port-values');
+      this.outputPorts.each(function (port) {
+        $('<li/>').text(port.getValue()).appendTo($outputPortValues);
+      });
+
       this.updatePosition();
 
       return this;
