@@ -83,21 +83,48 @@ define(function (require) {
       });
       p3.addActivity(act);
 
+      var p4 = new PhysicalSensor();
+      p4.setValue(30);
+      p4.setPosition(400, 250);
+
+      var p5 = new Processor();
+      p5.addInputPort('a');
+      p5.addInputPort('b');
+      p5.addOutputPort('out');
+      p5.setPosition(700, 175);
+
+      var act = new Activity({
+        logic: function (inputPorts, outputPorts) {
+          var a = inputPorts.findWhere({name: 'a'});
+          var b = inputPorts.findWhere({name: 'b'});
+          var out = outputPorts.findWhere({name: 'out'});
+          out.setValue((a.getValue() + b.getValue()) / 2);
+        }
+      });
+      p5.addActivity(act);
+
       var d1 = new DataLink(p1.getOutputPort('out'), p3.getInputPort('a'));
       var d2 = new DataLink(p2.getOutputPort('out'), p3.getInputPort('b'));
+      var d3 = new DataLink(p3.getOutputPort('out'), p5.getInputPort('a'));
+      var d4 = new DataLink(p4.getOutputPort('out'), p5.getInputPort('b'));
 
       df.addProcessor(p1);
       df.addProcessor(p2);
       df.addProcessor(p3);
+      df.addProcessor(p4);
+      df.addProcessor(p5);
       
       df.addDataLink(d1);
       df.addDataLink(d2);
+      df.addDataLink(d3);
+      df.addDataLink(d4);
 
       df.updateValues();
 
       setInterval(function () {
-        p1.setValue(Math.random() * 100);
-        p2.setValue(Math.random() * 100);
+        p1.setValue(p1.getValue() + 10);
+        p2.setValue(p2.getValue() + 10);
+        p4.setValue(p4.getValue() + 10);
         df.updateValues();
       }, 1000);
 
