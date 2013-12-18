@@ -19,7 +19,9 @@ define(function (require) {
       this.dataflowView = new DataflowView({
         model: this.dataflow
       });
-      this.panelView = new PanelView();
+      this.panelView = new PanelView({
+        dataflow: this.dataflow
+      });
     },
 
     render: function () {

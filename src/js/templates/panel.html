@@ -1,10 +1,10 @@
-<div class="available-sensors">
+<div class="sensors-section">
   <% _.each(sensorTypes, function (type) { %>
     <h3><%= type %></h3>
     <div>
-      <ul>
+      <ul class="sensors">
         <% _.each(sensorIds, function (id) { %>
-          <li>
+        <li class="sensor" data-type="<%= type %>" data-id="<%= id %>">
             <%= labelsMapping[id] %>
           </li>
         <% }); %>

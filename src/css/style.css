@@ -83,28 +83,26 @@ html, body {
   left: 10px;
   top: 10px;
   width: 120px;
-  /*background: #333;*/
   color: #aaa;
   font-family: 'monospace', 'courier', 'consola';
   font-size: 10px;
   line-height: 18px;
   z-index: 100;
-  /*padding: 20px;*/
-  /*border-radius: 5px;*/
 }
 
-.available-sensors ul {
+.sensors {
   padding: 0;
   margin: 0;
   list-style: none;
+  overflow: visible;
 }
 
-.available-sensors li {
+.sensor {
   font-size: 10px;
   line-height: 18px;
   cursor: move;
 }
 
-.available-sensors li:hover {
+.sensor:hover {
   color: #eee;
 }

@@ -21,7 +21,20 @@ define(function (require) {
     },
 
     render: function () {
-      this.$el.html(this.template());
+      var dataflow = this.model;
+
+      this.$el
+        .html(this.template())
+        .droppable({
+          accept: '.sensor',
+          drop: function (event, ui) {
+            var $sensor = ui.helper;
+            var sensor = new PhysicalSensor();
+            sensor.setPosition(ui.position.left, ui.position.top);
+            dataflow.addProcessor(sensor);
+          }
+        });
+
       this.paper = raphael(
         this.$('.svg-canvas').get(0),
         this.$el.width(),
