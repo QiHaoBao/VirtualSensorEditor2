@@ -4,18 +4,26 @@ define(function (require) {
 
   var DataLink = Backbone.Model.extend({
     initialize: function (sender, receiver) {
-      this.set('sender', sender);
-      this.set('receiver', receiver);
+      this.sender = sender;
+      this.receiver = receiver;
+
+      this.listenTo(sender, 'change:value', this.propagate);
+      this.propagate();
+
       this.listenTo(sender, 'change:position', this.triggerChangePosition);
       this.listenTo(receiver, 'change:position', this.triggerChangePosition);
     },
 
+    propagate: function () {
+      this.receiver.setValue(this.sender.getValue());
+    },
+
     getSender: function () {
-      return this.get('sender');
+      return this.sender;
     },
 
     getReceiver: function () {
-      return this.get('receiver');
+      return this.receiver;
     },
 
     triggerChangePosition: function () {
