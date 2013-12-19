@@ -4,14 +4,12 @@ define(function (require) {
   var Processor = require('models/processor');
 
   /**
-   * A PhysicalSensor is a processor which has no input ports and
-   * has exactly one output port named 'out'.
-   * It also has a device id and sensor type.
-   *
    * @class Physicalsensor
+   * @classdesc A PhysicalSensor is a processor which has no input ports and
+   *   has exactly one output port named 'out'.
+   *   It also has a device id and sensor type.
    */
   var PhysicalSensor = Processor.extend({
-
     /**
      * @constructs Physicalsensor
      */

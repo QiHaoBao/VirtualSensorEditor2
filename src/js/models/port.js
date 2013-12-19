@@ -3,13 +3,11 @@ define(function (require) {
   var Backbone = require('backbone');
 
   /**
-   * A Port can be either an input port, where data flows in,
-   * or an output port, where data flows out.
-   *
    * @class Port
+   * @classdesc A Port can be either an input port, where data flows in,
+   *   or an output port, where data flows out.
    */
   var Port = Backbone.Model.extend({
-
     /**
      * @constructs Port
      */

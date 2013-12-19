@@ -3,10 +3,9 @@ define(function (require) {
   var Backbone = require('backbone');
 
   /**
-   * DataLink represents the connection between two ports,
-   * in which one is an input port and the other one is an output port.
-   *
    * @class DataLink
+   * @classdesc DataLink represents the connection between two ports,
+   *   in which one is an input port and the other one is an output port.
    */
   var DataLink = Backbone.Model.extend({
     

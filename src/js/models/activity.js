@@ -3,10 +3,10 @@ define(function (require) {
   var Backbone = require('backbone');
 
   /**
-   * An activity contains the actual logic to process the input data
-   * and produce the ouputs
+   * @class Activity
+   * @classdesc An activity contains the actual logic to process the input
+   *   data and produce the ouputs
    *
-   * @class
    */
   var Activity = Backbone.Model.extend({
     defaults: {
