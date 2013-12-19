@@ -17,7 +17,7 @@ define(function (require) {
 
     initialize: function (options) {
       this.listenTo(this.model, 'add:processors', this.addProcessors);
-      this.listenTo(this.model, 'add:datalink', this.addDataLink);
+      this.listenTo(this.model, 'add:datalinks', this.addDataLinks);
     },
 
     render: function () {
@@ -61,6 +61,10 @@ define(function (require) {
         paper: this.paper
       });
       view.render().$el.appendTo(this.$el);
+    },
+
+    addDataLinks: function (datalinks) {
+      _.each(datalinks, this.addDataLink, this);
     },
 
     addDataLink: function (datalink) {
