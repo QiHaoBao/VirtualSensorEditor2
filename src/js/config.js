@@ -1,7 +1,7 @@
 define({
   ui: {
     datalink: {
-      stroke: '#777'
+      stroke: '#bbb'
     }
   },
   api: {
