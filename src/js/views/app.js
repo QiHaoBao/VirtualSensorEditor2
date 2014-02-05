@@ -24,10 +24,12 @@ define(function (require) {
       this.panelView = new PanelView({
         dataflow: this.dataflow
       });
+      this.navbarView = new NavbarView();
     },
 
     render: function () {
       this.$el.html(this.template());
+      this.navbarView.setElement(this.$('.navbar')).render();
       this.panelView.setElement(this.$('.panel')).render();
       this.dataflowView.setElement(this.$('.dataflow')).render();
       
