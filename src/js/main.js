@@ -4,7 +4,8 @@ require.config({
     backbone: 'lib/backbone',
     text: 'lib/text',
     raphael: 'lib/raphael',
-    jqueryui: 'lib/jquery-ui-1.10.3.custom'
+    jqueryui: 'lib/jquery-ui-1.10.3.custom',
+    cubism: 'lib/cubism.v1'
   },
   shim: {
     underscore: {
