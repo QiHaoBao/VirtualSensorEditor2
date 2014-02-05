@@ -36,10 +36,10 @@ html, body {
 .processor .body {
   display: inline-block;
   background: #eee;
-  padding: 8px 5px;
+  padding: 5px 5px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  min-width: 100px;
+  min-width: 150px;
 }
 
 .processor .controls {
@@ -47,6 +47,10 @@ html, body {
   left: 0;
   right: 0;
   top: 20px;
+}
+
+.ports-wrapper {
+  overflow: hidden;
 }
 
 .ports {
@@ -84,7 +88,7 @@ html, body {
   list-style: none;
   padding: 0;
   margin: 7px 0 0 -2px;
-  color: blue;
+  color: #6ac;
 }
 
 .panel {
@@ -114,4 +118,20 @@ html, body {
 
 .sensor:hover {
   color: #eee;
+}
+
+.chart {
+  margin-top: 5px;
+}
+
+.horizon .title {
+  display: none;
+}
+.horizon .value {
+  display: none;
+}
+
+.horizon canvas {
+  margin-bottom: -5px;
+  border: 1px solid #ddd;
 }

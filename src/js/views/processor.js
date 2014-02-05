@@ -41,6 +41,7 @@ define(function (require) {
       var processor = this.model;
 
       this.$el
+        .attr('id', 'processor-' + this.model.cid)
         .html(this.template(this.model.attributes))
         .data('view', this)
         .draggable({
@@ -63,6 +64,10 @@ define(function (require) {
       this.updatePosition();
       this.updatePortValues();
 
+
+      // render chart
+      setTimeout(this.renderChart.bind(this), 500);
+
       return this;
     },
 
@@ -81,6 +86,37 @@ define(function (require) {
           value = value.toFixed(1);
         }
         $('<li/>').text(value).appendTo($outputPortValues);
+      });
+    },
+
+    renderChart: function () {
+      var random = require('util').random;
+      var d3 = require('d3');
+      var cubism = require('cubism');
+      var context = cubism.context()
+          .serverDelay(0)
+          .clientDelay(0)
+          .step(1e3)
+          .size(150);
+
+      var foo = random(context, "foo"),
+          bar = random(context, "bar");
+
+      d3.select('#processor-' + this.model.cid + " .chart").call(function(div) {
+        div.datum(foo);
+        div.append("div")
+            .attr("class", "horizon")
+            .call(context.horizon()
+              .height(30)
+              .mode("mirror")
+              .colors(["#bdd7e7","#bae4b3"])
+              //.title("Area (30px)")
+              .extent([-10, 10]));
+      });
+
+      // On mousemove, reposition the chart values to match the rule.
+      context.on("focus", function(i) {
+        d3.selectAll(".value").style("right", i == null ? null : context.size() - i + "px");
       });
     }
   });

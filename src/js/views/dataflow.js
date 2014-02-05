@@ -30,15 +30,20 @@ define(function (require) {
           drop: function (event, ui) {
             var $sensor = ui.helper;
 
+            var sensor;
             var type = $sensor.data('type');
-            var deviceId = $sensor.data('id').toString();
-
-            var sensor = new PhysicalSensor({
-              type: type,
-              deviceId: deviceId,
-              x: ui.position.left,
-              y: ui.position.top
-            });
+            if (type === 'virtual') {
+              sensor = new VirtualSensor({
+              });
+            } else {
+              var deviceId = $sensor.data('id').toString();
+              sensor = new PhysicalSensor({
+                type: type,
+                deviceId: deviceId,
+                x: ui.position.left,
+                y: ui.position.top
+              });
+            }
             dataflow.addProcessor(sensor);
           }
         });
