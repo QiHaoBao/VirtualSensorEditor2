@@ -1,4 +1,9 @@
 @import url('./lib/normalize.css');
 @import url('./lib/jquery-ui/jquery-ui-1.10.3.custom.css');
 @import url('./jquery-ui-overide.css');
-@import url('./style.css');
+@import url('./base.css');
+@import url('./navbar.css');
+@import url('./app.css');
+@import url('./dataflow.css');
+@import url('./processor.css');
+@import url('./panel.css');

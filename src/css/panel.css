@@ -1,0 +1,28 @@
+.panel {
+  position: absolute;
+  left: 10px;
+  top: 40px;
+  width: 120px;
+  color: #aaa;
+  font-family: 'monospace', 'courier', 'consola';
+  font-size: 10px;
+  line-height: 18px;
+  z-index: 100;
+}
+
+.sensors {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow: visible;
+}
+
+.sensor {
+  font-size: 10px;
+  line-height: 18px;
+  cursor: move;
+}
+
+.sensor:hover {
+  color: black;
+}
