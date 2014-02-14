@@ -3,6 +3,7 @@ define(function (require) {
   var Backbone   = require('backbone');
   var Port       = require('models/port');
   var Ports      = require('collections/ports');
+  var util       = require('util');
 
   /**
    * @class Processor
@@ -165,6 +166,15 @@ define(function (require) {
 
     setActivity: function (activity) {
       this.set('activity', activity);
+    },
+
+    setActivityCode: function (code) {
+      var args = this.inputPorts.map(function (port) {
+        return port.getName();
+      }).concat(code);
+      var func = util.construct(Function, args);
+      console.log(func.toString());
+      this.setActivity(func);
     },
 
     /**

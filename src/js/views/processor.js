@@ -16,7 +16,8 @@ define(function (require) {
     template: _.template(template),
 
     events: {
-      'click .toolbar-button.edit': 'toggleCode'
+      'click .toolbar-button.edit': 'toggleCode',
+      'click .toolbar-button.save': 'saveCode'
     },
 
     initialize: function (options) {
@@ -67,9 +68,10 @@ define(function (require) {
       _.defer(this.renderChart.bind(this));
 
       var $code = this.$('.code textarea');
-      codemirror.fromTextArea($code.get(0), {
+      this.codemirror = codemirror.fromTextArea($code.get(0), {
         mode: 'text/javascript',
-      }).setSize('100%', '100px');
+      });
+      this.codemirror.setSize('100%', '100px');
 
       return this;
     },
@@ -134,12 +136,20 @@ define(function (require) {
 
     toggleCode: function () {
       var $code = this.$('.code');
+      var $save = this.$('.save');
       if (this.isCodeShown) {
         $code.slideUp();
+        $save.fadeOut();
       } else {
         $code.slideDown();
+        $save.fadeIn();
       }
       this.isCodeShown = !this.isCodeShown;
+    },
+
+    saveCode: function () {
+      var code = this.codemirror.getValue();
+      this.model.setActivityCode(code);
     }
   });
 
