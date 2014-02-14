@@ -93,21 +93,28 @@
 }
 
 .toolbar {
-  float: right;
   margin-top: 5px;
+  overflow: hidden;
 }
 
-.edit-button {
+.toolbar-button {
   font-size: 9px;
   color: #aaa;
   cursor: pointer;
+  float: right;
+  margin-left: 20px;
 }
 
-.edit-button:hover {
+.toolbar-button:hover {
   color: #333;
 }
 
-.edit-button i {
-  display: none;
+.toolbar-button i {
   margin-right: 3px;
+}
+
+.code {
+  display: none;
+  border: 1px solid #ccc;
+  cursor: text;
 }
