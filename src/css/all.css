@@ -1,6 +1,7 @@
 @import url('./lib/normalize.css');
 @import url('./lib/jquery-ui/jquery-ui-1.10.3.custom.css');
 @import url('./lib/foundation-icons/foundation-icons.css');
+@import url('./lib/codemirror.css');
 @import url('./jquery-ui-overide.css');
 @import url('./base.css');
 @import url('./navbar.css');
