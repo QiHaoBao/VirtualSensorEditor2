@@ -7,12 +7,17 @@ define(function (require) {
   var DataLinkView = require('views/datalink');
   var DataLink     = require('models/datalink');
   var template     = require('text!templates/processor.html');
+  var codemirror   = require('codemirror');
   require('jqueryui');
 
   var ProcessorView = Backbone.View.extend({
     tagName: 'div',
     className: 'processor',
     template: _.template(template),
+
+    events: {
+      'click .toolbar-button.edit': 'toggleCode'
+    },
 
     initialize: function (options) {
       this.paper = options.paper;
@@ -59,9 +64,12 @@ define(function (require) {
 
       this.updatePosition();
       this.updatePortValue();
+      _.defer(this.renderChart.bind(this));
 
-      // render chart
-      setTimeout(this.renderChart.bind(this), 500);
+      var $code = this.$('.code textarea');
+      codemirror.fromTextArea($code.get(0), {
+        mode: 'text/javascript',
+      }).setSize('100%', '100px');
 
       return this;
     },
@@ -122,6 +130,16 @@ define(function (require) {
       context.on("focus", function(i) {
         d3.selectAll(".value").style("right", i == null ? null : context.size() - i + "px");
       });
+    },
+
+    toggleCode: function () {
+      var $code = this.$('.code');
+      if (this.isCodeShown) {
+        $code.slideUp();
+      } else {
+        $code.slideDown();
+      }
+      this.isCodeShown = !this.isCodeShown;
     }
   });
 

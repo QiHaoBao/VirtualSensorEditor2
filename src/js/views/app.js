@@ -40,7 +40,7 @@ define(function (require) {
 
       var p2 = new PhysicalSensor();
       p2.setValue(20);
-      p2.setPosition(300, 200);
+      p2.setPosition(300, 250);
 
       var p3 = new Processor();
       p3.addInputPort('a');
