@@ -10,6 +10,8 @@ define(function (require) {
   var codemirror   = require('codemirror');
   require('jqueryui');
 
+  var hasRule = false;
+
   var ProcessorView = Backbone.View.extend({
     tagName: 'div',
     className: 'processor',
@@ -120,12 +122,26 @@ define(function (require) {
       d3.select('#processor-' + this.model.cid + " .chart").call(function(div) {
         div
           .datum(metric)
+          .append('div')
+            .attr('class', 'axis')
+            .call(context.axis()
+               .orient('top')
+               .ticks(3)
+               .tickSubdivide(3)
+               .tickSize(1))
           .append("div")
             .attr("class", "horizon")
             .call(context.horizon()
               .height(30)
               .mode('mirror')
               .colors(["#bdd7e7","#bae4b3"]));
+
+        if (!hasRule) {
+          hasRule = true;
+          div.append('div')
+            .attr('class', 'rule')
+            .call(context.rule())
+        }
       });
 
       // On mousemove, reposition the chart values to match the rule.

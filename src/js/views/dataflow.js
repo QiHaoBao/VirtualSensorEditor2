@@ -10,6 +10,7 @@ define(function (require) {
   var PhysicalSensor     = require('models/physical_sensor');
   var DataLink           = require('models/datalink');
   var DataLinkView       = require('views/datalink');
+  var VirtualSensor      = require('models/virtual_sensor');
   var template           = require('text!templates/dataflow.html');
 
   var DataflowView = Backbone.View.extend({
@@ -34,6 +35,8 @@ define(function (require) {
             var type = $sensor.data('type');
             if (type === 'virtual') {
               sensor = new VirtualSensor({
+                x: ui.position.left,
+                y: ui.position.top
               });
             } else {
               var deviceId = $sensor.data('id').toString();
