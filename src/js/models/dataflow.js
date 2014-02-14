@@ -17,7 +17,7 @@ define(function (require) {
      * @constructs Dataflow
      */
     initialize: function () {
-      this.processors = new Processors({dataflow: this});
+      this.processors = new Processors();
       this.datalinks = new DataLinks();
     },
 
@@ -100,35 +100,28 @@ define(function (require) {
     buildDependencyGraph: function () {
       var descendents = this.descendents = {};
       var indegree = this.indegree = {};
-      var ports = this.ports = {};
 
       this.datalinks.each(function (datalink) {
-        var sender = datalink.getSender();
-        var receiver = datalink.getReceiver();
+        var sender = datalink.getSender().getProcessor().cid;
+        var receiver = datalink.getReceiver().getProcessor().cid;
 
-        var senderId = sender.cid;
-        var receiverId = receiver.cid;
-
-        var receiverProcessor = receiver.getProcessor();
-        var receiverProcessorId = receiverProcessor.cid;
-
-        if (!indegree[receiverProcessorId]) {
-          indegree[receiverProcessorId] = 1;
+        if (!indegree[receiver]) {
+          indegree[receiver] = 1;
         } else {
-          indegree[receiverProcessorId] += 1;
+          indegree[receiver] += 1;
         }
 
-        if (!descendents[senderId]) {
-          descendents[senderId] = [receiverProcessorId];
+        if (!descendents[sender]) {
+          descendents[sender] = [receiver];
         } else {
-          descendents[senderId].push(receiverProcessorId);
+          descendents[sender].push(receiver);
         }
       });
 
       this.processors.each(function (processor) {
-        var processorId = processor.cid;
-        if (!indegree[processorId]) {
-          indegree[processorId] = 0;
+        var pid = processor.cid;
+        if (!indegree[pid]) {
+          indegree[pid] = 0;
         }
       });
     },
@@ -162,18 +155,15 @@ define(function (require) {
 
         // for each processor taken from the queue, it has an indegree of 0,
         // therefore, all its input ports are already ready to use. 
-        processor.updateOutputPortValues();
+        processor.updateOutputPortValue();
 
         // for each of the descendent processor ids, decrease its indegree by 1,
         // and push it into the queue if it reaches 0.
-        processor.getOutputPorts().each(function (port) {
-          var id = port.cid;
-          _.each(descendents[id], function (descendentId) {
-            indegree[descendentId] -= 1;
-            if (indegree[descendentId] === 0) {
-              queue.push(descendentId);
-            }
-          });
+        _.each(descendents[processorId], function (descendentId) {
+          indegree[descendentId] -= 1;
+          if (indegree[descendentId] === 0) {
+            queue.push(descendentId);
+          }
         });
       }
     }

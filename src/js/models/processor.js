@@ -3,21 +3,22 @@ define(function (require) {
   var Backbone   = require('backbone');
   var Port       = require('models/port');
   var Ports      = require('collections/ports');
-  var Activity   = require('models/activity');
-  var Activities = require('collections/activities');
 
   /**
    * @class Processor
    * @classdesc A Processor is an node in the dataflow diagram. It can 
-   *   have an arbitrary number of ports where data flows in and out. 
-   *   It can also have activities which are responsible for updating
-   *   the values of the output ports based on the values in the input
+   *   have an arbitrary number of input ports where data flows in 
+   *   and exactly one output port where data flows out.
+   *   It can also have an activity which is responsible for updating
+   *   the value of the output port based on the values in the input
    *   ports using custom logics.
    */
   var Processor = Backbone.Model.extend({
     defaults: {
+      name: 'untitled',
       x: 0,
-      y: 0
+      y: 0,
+      activity: function () { return null; }
     },
 
     /**
@@ -25,13 +26,16 @@ define(function (require) {
      */
     initialize: function () {
       this.inputPorts = new Ports();
-      this.outputPorts = new Ports();
-      this.activities = new Activities();
+      this.outputPort = new Port({
+        type: 'output',
+        name: 'out',
+        processor: this
+      });
 
       this.listenTo(this.inputPorts, 'change:value', function (port) {
         this.trigger('change:input-port-value', port);
       });
-      this.listenTo(this.outputPorts, 'change:value', function (port) {
+      this.listenTo(this.outputPort, 'change:value', function (port) {
         this.trigger('change:output-port-value', port);
       });
     },
@@ -74,10 +78,10 @@ define(function (require) {
      *
      * @public
      * @method
-     * @returns {Ports}
+     * @returns {Port}
      */
-    getOutputPorts: function () {
-      return this.outputPorts;
+    getOutputPort: function () {
+      return this.outputPort;
     },
 
     /**
@@ -97,22 +101,6 @@ define(function (require) {
     },
 
     /**
-     * Add an output port to the processor.
-     *
-     * @public
-     * @method
-     * @param {String} name Name of output port
-     */
-    addOutputPort: function (name) {
-      var port = new Port({
-        type: 'output',
-        name: name,
-        processor: this
-      });
-      this.outputPorts.add(port);
-    },
-
-    /**
      * Get an input port stored in the processor by its name.
      *
      * @public
@@ -122,18 +110,6 @@ define(function (require) {
      */
     getInputPort: function (name) {
       return this.inputPorts.findWhere({name: name });
-    },
-
-    /**
-     * Get an input port stored in the processor by its name.
-     *
-     * @public
-     * @method
-     * @param {String} name Name of input port.
-     * @param {Port}
-     */
-    getOutputPort: function (name) {
-      return this.outputPorts.findWhere({name: name});
     },
 
     /**
@@ -154,20 +130,14 @@ define(function (require) {
     },
 
     /**
-     * Find an output port in the processor by its name and set its value.
+     * Set the value of the output port.
      *
      * @public
      * @method
-     * @param {String} name Name of input port.
      * @param {*} value Value to be set.
      */
-    setOutputPortValue: function (portName, value) {
-      var port = this.outputPorts.findWhere({name: portName});
-      if (port) {
-        port.setValue(value);
-      } else {
-        throw new Error('No such port named ' + portName);
-      }
+    setOutputPortValue: function (value) {
+      this.outputPort.setValue(value);
     },
 
     /**
@@ -183,26 +153,18 @@ define(function (require) {
     },
 
     /**
-     * Find an output port in the processor by its name and get its value.
+     * Get the value of the output port.
      *
      * @public
      * @method
-     * @param {String} name Name of input port.
      * @returns {*}
      */
-    getOutputPortValue: function (portName) {
-      return this.outputPorts.findWhere({name: portName}).getValue();
+    getOutputPortValue: function () {
+      return this.outputPort.getValue();
     },
 
-    /**
-     * Add an activity into the processor.
-     *
-     * @public
-     * @method
-     * @param {Activity} act
-     */
-    addActivity: function (act) {
-      this.activities.add(act);
+    setActivity: function (activity) {
+      this.set('activity', activity);
     },
 
     /**
@@ -212,13 +174,12 @@ define(function (require) {
      * @public
      * @method
      */
-    updateOutputPortValues: function () {
-      var inputPorts = this.inputPorts;
-      var outputPorts = this.outputPorts;
-
-      this.activities.each(function (activity) {
-        activity.update(inputPorts, outputPorts);
+    updateOutputPortValue: function () {
+      var args = this.inputPorts.map(function (port) {
+        return port.getValue();
       });
+      var value = this.get('activity').apply(this, args);
+      this.outputPort.setValue(value);
     },
 
     /**

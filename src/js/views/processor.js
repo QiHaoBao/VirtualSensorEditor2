@@ -2,6 +2,7 @@ define(function (require) {
   var _            = require('underscore');
   var Backbone     = require('backbone');
   var Ports        = require('collections/ports');
+  var PortView     = require('views/port');
   var PortsView    = require('views/ports');
   var DataLinkView = require('views/datalink');
   var DataLink     = require('models/datalink');
@@ -18,15 +19,15 @@ define(function (require) {
 
       // ports
       this.inputPorts = this.model.getInputPorts();
-      this.outputPorts = this.model.getOutputPorts();
+      this.outputPort = this.model.getOutputPort();
 
       // ports views
       this.inputPortsView = new PortsView({
         collection: this.inputPorts,
         paper: this.paper
       });
-      this.outputPortsView = new PortsView({
-        collection: this.outputPorts,
+      this.outputPortView = new PortView({
+        model: this.outputPort,
         paper: this.paper
       });
 
@@ -34,7 +35,7 @@ define(function (require) {
       this.listenTo(this.model, 'change:x', this.updatePosition);
       this.listenTo(this.model, 'change:y', this.updatePosition);
 
-      this.listenTo(this.outputPorts, 'change:value', this.updatePortValues);
+      this.listenTo(this.outputPort, 'change:value', this.updatePortValue);
     },
 
     render: function () {
@@ -53,17 +54,11 @@ define(function (require) {
           }
         });
 
-      // cache jquery objects
-      this.$inputPorts = this.$('.input.ports');
-      this.$outputPorts = this.$('.output.ports');
-
-      // render ports
-      this.inputPortsView.setElement(this.$inputPorts).render();
-      this.outputPortsView.setElement(this.$outputPorts).render();
+      this.inputPortsView.setElement(this.$('.input-ports')).render();
+      this.outputPortView.setElement(this.$('.output-port')).render();
 
       this.updatePosition();
-      this.updatePortValues();
-
+      this.updatePortValue();
 
       // render chart
       setTimeout(this.renderChart.bind(this), 500);
@@ -78,40 +73,49 @@ define(function (require) {
       });
     },
 
-    updatePortValues: function () {
-      var $outputPortValues = this.$('.output-port-values').html('');
-      this.outputPorts.each(function (port) {
-        var value = port.getValue();
-        if (_.isNumber(value)) {
-          value = value.toFixed(1);
-        }
-        $('<li/>').text(value).appendTo($outputPortValues);
-      });
+    updatePortValue: function () {
+      var $outputPortValue = this.$('.output-port-value').html('');
+      var value = this.outputPort.getValue();
+      if (_.isNumber(value)) {
+        value = value.toFixed(1);
+      }
+      $outputPortValue.text(value);
     },
 
     renderChart: function () {
+      var chartSize = 200;
+      var self = this;
       var random = require('util').random;
       var d3 = require('d3');
       var cubism = require('cubism');
       var context = cubism.context()
           .serverDelay(0)
           .clientDelay(0)
-          .step(1e3)
-          .size(150);
+          .step(1000)
+          .size(chartSize);
 
-      var foo = random(context, "foo"),
-          bar = random(context, "bar");
+      var metric = context.metric(function (start, stop, step, callback) {
+        var values = [];
+        start = +start;
+        stop = +stop;
+
+        while (start < stop) {
+          start += step;
+          values.push(self.outputPort.getValue());
+        }
+
+        callback(null, values);
+      });
 
       d3.select('#processor-' + this.model.cid + " .chart").call(function(div) {
-        div.datum(foo);
-        div.append("div")
+        div
+          .datum(metric)
+          .append("div")
             .attr("class", "horizon")
             .call(context.horizon()
               .height(30)
-              .mode("mirror")
-              .colors(["#bdd7e7","#bae4b3"])
-              //.title("Area (30px)")
-              .extent([-10, 10]));
+              .mode('mirror')
+              .colors(["#bdd7e7","#bae4b3"]));
       });
 
       // On mousemove, reposition the chart values to match the rule.

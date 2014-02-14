@@ -15,7 +15,6 @@ define(function (require) {
      */
     initialize: function () {
       Processor.prototype.initialize.call(this);
-      this.addOutputPort('out');
     },
 
     /**
@@ -48,7 +47,7 @@ define(function (require) {
      * @returns {*}
      */
     getValue: function () {
-      return this.getOutputPortValue('out');
+      return this.getOutputPortValue();
     },
 
     /**
@@ -59,7 +58,9 @@ define(function (require) {
      * @param {*} value
      */
     setValue: function (value) {
-      this.setOutputPortValue('out', value);
+      this.set('activity', function () {
+        return value;
+      });
     }
   });
 
