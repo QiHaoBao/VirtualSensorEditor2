@@ -11,6 +11,7 @@ define(function (require) {
   var config         = require('config');
   var api            = require('api');
   var template       = require('text!templates/app.html');
+  require('jqueryui');
 
   var App = Backbone.View.extend({
     template: _.template(template),
@@ -31,6 +32,8 @@ define(function (require) {
       this.navbarView.setElement(this.$('.navbar')).render();
       this.panelView.setElement(this.$('.panel')).render();
       this.dataflowView.setElement(this.$('.dataflow')).render();
+
+      $('.slider').slider();
       
       var df = this.dataflow;
 

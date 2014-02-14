@@ -5,7 +5,7 @@ define(function (require) {
     getLastReadingsFromAllDevices: function (options) {
       var url = [
         hostname,
-        'last_readings_from_all_devices',
+        'getLastestReadingsFromAllDevices',
         options.timestamp,
         options.type,
         'json'

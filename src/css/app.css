@@ -5,3 +5,9 @@
   position: relative;
 }
 
+
+.slider {
+  right: 100px;
+  bottom: 100px;
+  width: 100px;
+}

@@ -5,7 +5,7 @@ define({
     }
   },
   api: {
-    hostname: 'http://einstein.sv.cmu.edu'
+    hostname: 'http://einstein.sv.cmu.edu:9000'
   },
   sensors: {
     types: [

@@ -54,6 +54,7 @@ define(function (require) {
         .html(this.template(this.model.attributes))
         .data('view', this)
         .draggable({
+          handle: '.name',
           drag: function (event, ui) {
             processor.setPosition(ui.position.left, ui.position.top);
           },
