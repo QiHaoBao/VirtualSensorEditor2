@@ -9,7 +9,7 @@ define({
 
   getFunctionBody: function (f) {
     var s = f.toString();
-    var body = s.slice(s.indexOf("{") + 1, s.lastIndexOf("}"));
+    var body = s.slice(s.indexOf("{") + 1, s.lastIndexOf("}")).trim();
     return body;
   }
 });

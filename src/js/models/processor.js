@@ -177,6 +177,10 @@ define(function (require) {
       this.setActivity(func);
     },
 
+    getActivityCode: function () {
+      return util.getFunctionBody(this.get('activity'));
+    },
+
     /**
      * Update the values of the output ports using the values of the input port
      * and the logics of the activities.

@@ -141,6 +141,8 @@ define(function (require) {
         $code.slideUp();
         $save.fadeOut();
       } else {
+        this.codemirror.setValue(this.model.getActivityCode());
+        _.defer(this.codemirror.refresh.bind(this.codemirror));
         $code.slideDown();
         $save.fadeIn();
       }
