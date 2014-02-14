@@ -6,7 +6,8 @@ require.config({
     raphael: 'lib/raphael',
     jqueryui: 'lib/jquery-ui-1.10.3.custom',
     d3: 'lib/d3.v2',
-    cubism: 'lib/cubism.v1'
+    cubism: 'lib/cubism.v1',
+    codemirror: 'lib/codemirror'
   },
   shim: {
     underscore: {
@@ -28,6 +29,9 @@ require.config({
     cubism: {
       deps: ['d3'],
       exports: 'cubism'
+    },
+    codemirror: {
+      exports: 'CodeMirror'
     }
   },
   urlArgs: "bust=" +  Date.now()
