@@ -29,6 +29,7 @@ define(function (require) {
           helper: function () {
             return $('<div/>').addClass('port-draggable-helper');
           },
+          cursor: 'crosshair',
           cursorAt: {
             left: 0,
             top: 0
@@ -54,7 +55,7 @@ define(function (require) {
           }
         })
         .droppable({
-          accept: portType === 'input' ? '.output.ports > .port' : '.input.ports > .port',
+          accept: portType === 'input' ? '.output-port' : '.input-ports > .port',
           hoverClass: 'droppable-hover',
           drop: function (event, ui) {
             var $originPort = $(ui.draggable);
