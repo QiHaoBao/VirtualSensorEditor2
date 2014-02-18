@@ -35,12 +35,14 @@ define(function (require) {
             var type = $sensor.data('type');
             if (type === 'virtual') {
               sensor = new VirtualSensor({
+                name: 'virtual',
                 x: ui.position.left,
                 y: ui.position.top
               });
             } else {
               var deviceId = $sensor.data('id').toString();
               sensor = new PhysicalSensor({
+                name: type + ' ' + $sensor.text(),
                 type: type,
                 deviceId: deviceId,
                 x: ui.position.left,
