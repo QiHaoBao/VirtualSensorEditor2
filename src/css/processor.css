@@ -141,6 +141,8 @@
 .axis text {
   fill: #aaa;
   font-size: 8px;
+  -webkit-transition: fill-opacity 200ms linear;
+          transition: fill-opacity 200ms linear;
 }
 
 .axis > svg {
