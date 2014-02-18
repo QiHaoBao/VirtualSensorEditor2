@@ -96,7 +96,6 @@ define(function (require) {
     },
 
     renderChart: function () {
-      var chartSize = 200;
       var self = this;
       var random = require('util').random;
       var d3 = require('d3');
@@ -105,7 +104,7 @@ define(function (require) {
           .serverDelay(0)
           .clientDelay(0)
           .step(1000)
-          .size(chartSize);
+          .size(this.$('.body').width());
 
       var metric = context.metric(function (start, stop, step, callback) {
         var values = [];
