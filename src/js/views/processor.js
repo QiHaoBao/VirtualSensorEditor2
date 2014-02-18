@@ -120,7 +120,7 @@ define(function (require) {
         callback(null, values);
       });
 
-      d3.select('#processor-' + this.model.cid + " .chart").call(function(div) {
+      d3.select(this.el).select('.chart').call(function(div) {
         div
           .datum(metric)
           .append('div')
@@ -141,13 +141,14 @@ define(function (require) {
           hasRule = true;
           div.append('div')
             .attr('class', 'rule')
-            .call(context.rule())
+            .call(context.rule());
         }
       });
 
       // On mousemove, reposition the chart values to match the rule.
       context.on("focus", function(i) {
-        d3.selectAll(".value").style("right", i == null ? null : context.size() - i + "px");
+        d3.select(self.el).select('.value')
+          .style("right", i == null ? null : context.size() - i + "px");
       });
     },
 
