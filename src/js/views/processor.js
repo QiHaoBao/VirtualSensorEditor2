@@ -6,7 +6,9 @@ define(function (require) {
   var PortsView    = require('views/ports');
   var DataLinkView = require('views/datalink');
   var DataLink     = require('models/datalink');
+  var TimelineView = require('views/timeline');
   var template     = require('text!templates/processor.html');
+  var cubism       = require('cubism');
   var codemirror   = require('codemirror');
   require('jqueryui');
 
@@ -17,7 +19,8 @@ define(function (require) {
 
     events: {
       'click .toolbar-button.edit': 'toggleCode',
-      'click .toolbar-button.save': 'saveCode'
+      'click .toolbar-button.save': 'saveCode',
+      'click .horizon': 'showTimeline'
     },
 
     initialize: function (options) {
@@ -83,9 +86,7 @@ define(function (require) {
 
     renderChart: function () {
       var self = this;
-      var random = require('util').random;
       var d3 = require('d3');
-      var cubism = require('cubism');
       var context = cubism.context()
           .serverDelay(0)
           .clientDelay(0)
@@ -148,6 +149,14 @@ define(function (require) {
     saveCode: function () {
       var code = this.codemirror.getValue();
       this.model.setActivityCode(code);
+    },
+
+    showTimeline: function () {
+      var view = new TimelineView({
+        model: this.model
+      });
+      view.render();
+      return false;
     }
   });
 
