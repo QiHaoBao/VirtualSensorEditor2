@@ -11,6 +11,13 @@ define(function (require) {
         'json'
       ].join('/');
       $.getJSON(url, options.callback);
+    },
+    getSensorReadingsInTimeRange: function (options) {
+      var values = [];
+      for (var i = 0; i < 10000; ++i) {
+        values.push(Math.random() * 100);
+      }
+      options.callback(values);
     }
   };
 });
