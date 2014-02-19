@@ -196,6 +196,14 @@ define(function (require) {
       this.outputPort.setValue(value);
     },
 
+    setHistoricalData: function (data) {
+      this.set('historicalData', data);
+    },
+
+    getHistoricalData: function (data) {
+      return this.get('historicalData');
+    },
+
     /**
      * Get the x coordinate of the processor.
      *
