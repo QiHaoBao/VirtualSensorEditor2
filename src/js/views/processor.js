@@ -7,6 +7,7 @@ define(function (require) {
   var DataLinkView = require('views/datalink');
   var DataLink     = require('models/datalink');
   var TimelineView = require('views/timeline');
+  var Alert        = require('models/alert');
   var template     = require('text!templates/processor.html');
   var cubism       = require('cubism');
   var codemirror   = require('codemirror');
@@ -66,7 +67,11 @@ define(function (require) {
       this.outputPortView.setElement(this.$('.output-port')).render();
 
       this.updatePosition();
-      _.defer(this.renderChart.bind(this));
+      if (this.model instanceof Alert) {
+        this.renderAlert();
+      } else {
+        _.defer(this.renderChart.bind(this));
+      }
 
       var $code = this.$('.code textarea');
       this.codemirror = codemirror.fromTextArea($code.get(0), {
@@ -81,6 +86,20 @@ define(function (require) {
       this.$el.css({
         left: this.model.getX(),
         top: this.model.getY()
+      });
+    },
+
+    renderAlert: function () {
+      var self = this;
+      var $alert = $('<div/>')
+        .addClass('alert')
+        .appendTo(this.$('.chart'));
+      this.listenTo(this.outputPort, 'change:value', function () {
+        if (self.outputPort.getValue()) {
+          $alert.css({background: 'red'});
+        } else {
+          $alert.css({background: 'green'});
+        }
       });
     },
 

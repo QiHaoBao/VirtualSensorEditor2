@@ -11,6 +11,7 @@ define(function (require) {
   var DataLink           = require('models/datalink');
   var DataLinkView       = require('views/datalink');
   var VirtualSensor      = require('models/virtual_sensor');
+  var Alert              = require('models/alert');
   var template           = require('text!templates/dataflow.html');
 
   var DataflowView = Backbone.View.extend({
@@ -33,7 +34,13 @@ define(function (require) {
 
             var sensor;
             var type = $sensor.data('type');
-            if (type === 'virtual') {
+            if (type === 'alert') {
+              sensor = new Alert({
+                name: 'alert',
+                x: ui.position.left,
+                y: ui.position.top
+              });
+            } else if (type === 'virtual') {
               sensor = new VirtualSensor({
                 name: 'virtual',
                 x: ui.position.left,
