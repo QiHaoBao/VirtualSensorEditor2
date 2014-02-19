@@ -40,8 +40,6 @@ define(function (require) {
       // event listeners
       this.listenTo(this.model, 'change:x', this.updatePosition);
       this.listenTo(this.model, 'change:y', this.updatePosition);
-
-      this.listenTo(this.outputPort, 'change:value', this.updatePortValue);
     },
 
     render: function () {
@@ -65,7 +63,6 @@ define(function (require) {
       this.outputPortView.setElement(this.$('.output-port')).render();
 
       this.updatePosition();
-      this.updatePortValue();
       _.defer(this.renderChart.bind(this));
 
       var $code = this.$('.code textarea');
@@ -82,15 +79,6 @@ define(function (require) {
         left: this.model.getX(),
         top: this.model.getY()
       });
-    },
-
-    updatePortValue: function () {
-      var $outputPortValue = this.$('.output-port-value').html('');
-      var value = this.outputPort.getValue();
-      if (_.isNumber(value)) {
-        value = value.toFixed(1);
-      }
-      $outputPortValue.text(value);
     },
 
     renderChart: function () {
