@@ -164,6 +164,10 @@ define(function (require) {
       return this.outputPort.getValue();
     },
 
+    getActivity: function () {
+      return this.get('activity');
+    },
+
     setActivity: function (activity) {
       this.set('activity', activity);
     },
@@ -202,6 +206,10 @@ define(function (require) {
 
     getHistoricalData: function (data) {
       return this.get('historicalData');
+    },
+
+    getName: function () {
+      return this.get('name');
     },
 
     /**
@@ -261,6 +269,18 @@ define(function (require) {
         x: x,
         y: y
       });
+    },
+
+    toJSON: function () {
+      return {
+        cid: this.cid,
+        name: this.getName(),
+        x: this.getX(),
+        y: this.getY(),
+        inputPorts: this.inputPorts.toJSON(),
+        outputPort: this.outputPort.toJSON(),
+        activity: this.getActivity().toString()
+      };
     }
   });
 

@@ -92,6 +92,14 @@ define(function (require) {
      */
     setValue: function (value) {
       this.set('value', value);
+    },
+
+    toJSON: function () {
+      return {
+        cid: this.cid,
+        type: this.getType(),
+        name: this.getName()
+      };
     }
   });
 

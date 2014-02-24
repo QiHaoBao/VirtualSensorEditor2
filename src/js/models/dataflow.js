@@ -166,6 +166,13 @@ define(function (require) {
           }
         });
       }
+    },
+
+    toJSON: function () {
+      return {
+        processors: this.processors.toJSON(),
+        datalinks: this.datalinks.toJSON()
+      };
     }
   });
 

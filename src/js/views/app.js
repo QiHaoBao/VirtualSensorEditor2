@@ -25,6 +25,7 @@ define(function (require) {
         dataflow: this.dataflow
       });
       this.navbarView = new NavbarView();
+      window.dataflow = this.dataflow;
     },
 
     render: function () {

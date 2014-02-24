@@ -65,6 +65,13 @@ define(function (require) {
      */
     triggerChangePosition: function () {
       this.trigger('change:position');
+    },
+
+    toJSON: function () {
+      return {
+        sender: this.sender.cid,
+        receiver: this.receiver.cid
+      };
     }
   });
 
