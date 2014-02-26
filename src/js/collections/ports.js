@@ -5,6 +5,11 @@ define(function (require) {
 
   var Ports = Backbone.Collection.extend({
     model: Port
+  }, {
+    fromJSON: function (json) {
+      var models = _.map(json, Port.fromJSON);
+      return new Ports(models);
+    }
   });
 
   return Ports;
