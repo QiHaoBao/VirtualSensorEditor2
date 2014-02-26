@@ -101,6 +101,15 @@ define(function (require) {
         name: this.getName()
       };
     }
+  }, {
+    fromJSON: function (json) {
+      var port = new Port({
+        type: json.type,
+        name: json.name
+      });
+      port.cid = json.cid;
+      return port;
+    }
   });
 
   return Port;
