@@ -5,6 +5,11 @@ define(function (require) {
 
   var Processors = Backbone.Collection.extend({
     model: Processor
+  }, {
+    fromJSON: function (json) {
+      var models = _.map(json, Processor.fromJSON);
+      return new Processors(models);
+    }
   });
 
   return Processors;
