@@ -282,6 +282,18 @@ define(function (require) {
         activity: this.getActivity().toString()
       };
     }
+  }, {
+    fromJSON: function (json) {
+      var processor = new Processor({
+        x: json.x,
+        y: json.y,
+        name: json.name,
+        activity: eval('(' + json.activity + ')')
+      });
+      processor.inputPorts = Ports.fromJSON(json.inputPorts);
+      processor.outputPort = Port.fromJSON(json.outputPort);
+      return processor;
+    }
   });
 
   return Processor;
