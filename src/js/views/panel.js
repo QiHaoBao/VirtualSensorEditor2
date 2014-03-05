@@ -17,9 +17,7 @@ define(function (require) {
 
       this.$el
         .html(this.template({
-          sensorTypes: config.sensors.types,
-          sensorIds: config.sensors.ids,
-          labelsMapping: config.sensors.labelsMapping
+          sensors: config.sensors
         }))
         .draggable();
 

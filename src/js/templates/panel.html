@@ -1,11 +1,11 @@
 <div class="sensors-section">
-  <% _.each(sensorTypes, function (type) { %>
-    <h3><%= type %></h3>
+  <% _.each(_.groupBy(sensors, 'sensorType'), function (group, sensorType) { %>
+    <h3><%= sensorType %></h3>
     <div>
       <ul class="sensors">
-        <% _.each(sensorIds, function (id) { %>
-        <li class="sensor" data-type="<%= type %>" data-id="<%= id %>">
-            <%= labelsMapping[id] %>
+        <% _.each(sensors, function (sensor) { %>
+        <li class="sensor" data-type="<%= sensor.sensorType %>" data-name="<%= sensor.sensorName %>">
+            <%= sensor.sensorName %>
           </li>
         <% }); %>
       </ul>

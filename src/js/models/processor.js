@@ -271,6 +271,10 @@ define(function (require) {
       });
     },
 
+    setName: function (name) {
+      this.set('name', name);
+    },
+
     toJSON: function () {
       return {
         cid: this.cid,

@@ -6,11 +6,15 @@ define(function (require) {
       var url = [
         hostname,
         'getLastestReadingsFromAllDevices',
-        options.timestamp,
+        //options.timestamp,
         options.type,
         'json'
       ].join('/');
-      $.getJSON(url, options.callback);
+      $.ajax({
+        url: url,
+        dataType: 'json',
+        success: options.callback
+      });
     },
     getSensorReadingsInTimeRange: function (options) {
       var values = [];
