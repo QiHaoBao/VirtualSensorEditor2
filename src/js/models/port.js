@@ -40,7 +40,6 @@ define(function (require) {
 
     /**
      * Get the type of this port.
-     * Can either be 'input' or 'output'.
      *
      * @public
      * @method
@@ -48,6 +47,13 @@ define(function (require) {
      */
     getType: function () {
       return this.get('type');
+    },
+
+    /**
+     * Set the type of this port.
+     */
+    setType: function (type) {
+      this.set('type', type);
     },
 
     /**

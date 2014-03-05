@@ -290,8 +290,18 @@ define(function (require) {
         name: json.name,
         activity: eval('(' + json.activity + ')')
       });
-      processor.inputPorts = Ports.fromJSON(json.inputPorts);
-      processor.outputPort = Port.fromJSON(json.outputPort);
+      _.each(json.inputPorts, function (j) {
+        var port = new Port({
+          name: j.name,
+          type: j.type,
+          processor: processor
+        });
+        port.cid = j.cid;
+        processor.inputPorts.add(port);
+      });
+      processor.outputPort.setType(json.outputPort.type);
+      processor.outputPort.setName(json.outputPort.name);
+      processor.outputPort.cid = json.outputPort.cid;
       return processor;
     }
   });
