@@ -174,7 +174,17 @@ define(function (require) {
         datalinks: this.datalinks.toJSON()
       };
     }
+  }, {
+    fromJSON: function (json) {
+      var dataflow = new Dataflow();
+      dataflow.processors = Processors.fromJSON(json.processors);
+      _.each(json.datalinks, function () {
+      
+      });
+      return dataflow;
+    }
   });
+  window.Dataflow = Dataflow;
 
   return Dataflow;
 });
