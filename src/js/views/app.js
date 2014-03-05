@@ -97,12 +97,12 @@ define(function (require) {
       }, 1000);
 
 
-      var fetchSensorValues = _.bind(this.fetchSensorValues, this);
-      (function updateSensorValues() {
-        fetchSensorValues(function () {
-          setTimeout(updateSensorValues, 5000);
-        });
-      })();
+      //var fetchSensorValues = _.bind(this.fetchSensorValues, this);
+      //(function updateSensorValues() {
+        //fetchSensorValues(function () {
+          //setTimeout(updateSensorValues, 5000);
+        //});
+      //})();
 
       return this;
     },
@@ -110,12 +110,9 @@ define(function (require) {
     fetchSensorValues: function (callback) {
       var dataflow = this.dataflow;
       var processors = dataflow.getProcessors();
-      var timestamp = Date.now();
 
-
-      _.each(config.sensors.types, function (type) {
-        api.getLastReadingsFromAllDevices({
-          timestamp: timestamp,
+      _.each(_.groupBy(config.sensors, 'sensorType'), function (group, type) {
+        api.getLatestReadingsFromAllDevices({
           type: type,
           callback: function (data) {
             // sample data:

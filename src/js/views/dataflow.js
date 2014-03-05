@@ -47,11 +47,11 @@ define(function (require) {
                 y: ui.position.top
               });
             } else {
-              var deviceId = $sensor.data('id').toString();
+              //var deviceId = $sensor.data('id').toString();
               sensor = new PhysicalSensor({
                 name: $sensor.text(),
                 type: type,
-                deviceId: deviceId,
+                //deviceId: deviceId,
                 x: ui.position.left,
                 y: ui.position.top
               });

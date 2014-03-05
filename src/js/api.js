@@ -2,16 +2,17 @@ define(function (require) {
   var hostname = require('config').api.hostname;
 
   return {
-    getLastReadingsFromAllDevices: function (options) {
+    getLatestReadingsFromAllDevices: function (options) {
       var url = [
         hostname,
-        'getLastestReadingsFromAllDevices',
+        'getLatestReadingsFromAllDevices',
         //options.timestamp,
         options.type,
         'json'
       ].join('/');
       $.ajax({
         url: url,
+        type: 'GET',
         dataType: 'json',
         success: options.callback
       });
