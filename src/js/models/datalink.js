@@ -7,7 +7,9 @@ define(function (require) {
    * @classdesc DataLink represents the connection between two ports,
    *   in which one is an input port and the other one is an output port.
    */
-  var DataLink = Backbone.Model.extend({
+  var DataLink = Backbone.Model.extend(
+    /** @lends DataLink.prototype */
+    {
     
     /**
      * @constructs DataLink

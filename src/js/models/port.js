@@ -7,10 +7,9 @@ define(function (require) {
    * @classdesc A Port can be either an input port, where data flows in,
    *   or an output port, where data flows out.
    */
-  var Port = Backbone.Model.extend({
-    /**
-     * @constructs Port
-     */
+  var Port = Backbone.Model.extend(
+    /** @lends Port.prototype */
+    {
     initialize: function () {
       var processor = this.getProcessor();
       this.listenTo(processor, 'change:x', this.triggerChangePosition);

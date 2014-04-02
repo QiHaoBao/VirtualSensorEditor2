@@ -14,7 +14,10 @@ define(function (require) {
    *   the value of the output port based on the values in the input
    *   ports using custom logics.
    */
-  var Processor = Backbone.Model.extend({
+  var Processor = Backbone.Model.extend(
+    /** @lends Processor.prototype */
+    {
+
     defaults: {
       name: 'untitled',
       x: 0,
@@ -22,9 +25,6 @@ define(function (require) {
       activity: function () { return null; }
     },
 
-    /**
-     * @constructs Processor
-     */
     initialize: function () {
       this.inputPorts = new Ports();
       this.outputPort = new Port({

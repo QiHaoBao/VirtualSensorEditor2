@@ -8,11 +8,11 @@ define(function (require) {
    * @classdesc A PhysicalSensor is a processor which has no input ports and
    *   has exactly one output port named 'out'.
    *   It also has a device id and sensor type.
+   * @extends Processor
    */
-  var PhysicalSensor = Processor.extend({
-    /**
-     * @constructs Physicalsensor
-     */
+  var PhysicalSensor = Processor.extend(
+    /** @lends PhysicalSensor.prototype */
+    {
     initialize: function () {
       Processor.prototype.initialize.call(this);
     },

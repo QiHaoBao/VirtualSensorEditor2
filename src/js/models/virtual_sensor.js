@@ -5,11 +5,11 @@ define(function (require) {
 
   /**
    * @class VirtualSensor
+   * @extends Processor
    */
-  var VirtualSensor = Processor.extend({
-    /**
-     * @constructs Virtualsensor
-     */
+  var VirtualSensor = Processor.extend(
+    /** @lends VirtualSensor.prototype */
+    {
     initialize: function () {
       Processor.prototype.initialize.call(this);
     },

@@ -11,11 +11,9 @@ define(function (require) {
    *   datalinks. It's also responsible for propagating the signal values
    *   from the source processors to their descendents.
    */
-  var Dataflow = Backbone.Model.extend({
-    /**
-     * @public
-     * @constructs Dataflow
-     */
+  var Dataflow = Backbone.Model.extend(
+    /** @lends Dataflow.prototype */
+    {
     initialize: function () {
       this.processors = new Processors();
       this.datalinks = new DataLinks();
@@ -82,7 +80,7 @@ define(function (require) {
      *
      * @public
      * @method
-     * @param {Array.<DataLink>} datalink The datalink to add
+     * @param {Array.<DataLink>} datalinks The datalinks to add
      */
     addDataLinks: function (datalinks) {
       this.datalinks.add(datalinks);
