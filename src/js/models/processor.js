@@ -177,7 +177,6 @@ define(function (require) {
         return port.getName();
       }).concat(code);
       var func = util.construct(Function, args);
-      console.log(func.toString());
       this.setActivity(func);
     },
 

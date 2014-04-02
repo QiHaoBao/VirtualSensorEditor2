@@ -97,12 +97,12 @@ define(function (require) {
       }, 1000);
 
 
-      //var fetchSensorValues = _.bind(this.fetchSensorValues, this);
-      //(function updateSensorValues() {
-        //fetchSensorValues(function () {
-          //setTimeout(updateSensorValues, 5000);
-        //});
-      //})();
+      var fetchSensorValues = _.bind(this.fetchSensorValues, this);
+      (function updateSensorValues() {
+        fetchSensorValues(function () {
+          setTimeout(updateSensorValues, 5000);
+        });
+      })();
 
       return this;
     },
@@ -129,7 +129,6 @@ define(function (require) {
               // the id of the processor, for quick find
               var ps = processors.where({
                 name: entry.sensorName,
-                type: entry.sensor_type
               });
               if (ps.length) {
                 _.each(ps, function (p) {
