@@ -5,15 +5,16 @@ define(function (require) {
   var DataLink   = require('models/datalink');
   var DataLinks  = require('collections/datalinks');
 
-  /**
-   * @class Dataflow
-   * @classdesc The Dataflow class acts as the container of processors and
-   *   datalinks. It's also responsible for propagating the signal values
-   *   from the source processors to their descendents.
-   */
   var Dataflow = Backbone.Model.extend(
     /** @lends Dataflow.prototype */
     {
+
+    /**
+     * @class Dataflow
+     * @classdesc The Dataflow class acts as the container of processors and
+     *   datalinks. It's also responsible for propagating the signal values
+     *   from the source processors to their descendents.
+     */
     initialize: function () {
       this.processors = new Processors();
       this.datalinks = new DataLinks();

@@ -5,15 +5,6 @@ define(function (require) {
   var Ports      = require('collections/ports');
   var util       = require('util');
 
-  /**
-   * @class Processor
-   * @classdesc A Processor is an node in the dataflow diagram. It can 
-   *   have an arbitrary number of input ports where data flows in 
-   *   and exactly one output port where data flows out.
-   *   It can also have an activity which is responsible for updating
-   *   the value of the output port based on the values in the input
-   *   ports using custom logics.
-   */
   var Processor = Backbone.Model.extend(
     /** @lends Processor.prototype */
     {
@@ -25,6 +16,15 @@ define(function (require) {
       activity: function () { return null; }
     },
 
+    /**
+     * @class Processor
+     * @classdesc A Processor is an node in the dataflow diagram. It can 
+     *   have an arbitrary number of input ports where data flows in 
+     *   and exactly one output port where data flows out.
+     *   It can also have an activity which is responsible for updating
+     *   the value of the output port based on the values in the input
+     *   ports using custom logics.
+     */
     initialize: function () {
       this.inputPorts = new Ports();
       this.outputPort = new Port({

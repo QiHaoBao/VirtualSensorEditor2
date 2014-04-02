@@ -2,14 +2,15 @@ define(function (require) {
   var _        = require('underscore');
   var Backbone = require('backbone');
 
-  /**
-   * @class Port
-   * @classdesc A Port can be either an input port, where data flows in,
-   *   or an output port, where data flows out.
-   */
   var Port = Backbone.Model.extend(
     /** @lends Port.prototype */
     {
+
+    /**
+     * @class Port
+     * @classdesc A Port can be either an input port, where data flows in,
+     *   or an output port, where data flows out.
+     */
     initialize: function () {
       var processor = this.getProcessor();
       this.listenTo(processor, 'change:x', this.triggerChangePosition);

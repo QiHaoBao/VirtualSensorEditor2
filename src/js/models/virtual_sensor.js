@@ -3,13 +3,14 @@ define(function (require) {
   var Backbone = require('backbone');
   var Processor = require('models/processor');
 
-  /**
-   * @class VirtualSensor
-   * @extends Processor
-   */
   var VirtualSensor = Processor.extend(
     /** @lends VirtualSensor.prototype */
     {
+
+    /**
+     * @class VirtualSensor
+     * @extends Processor
+     */
     initialize: function () {
       Processor.prototype.initialize.call(this);
     },

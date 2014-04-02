@@ -3,16 +3,17 @@ define(function (require) {
   var Backbone = require('backbone');
   var Processor = require('models/processor');
 
-  /**
-   * @class Physicalsensor
-   * @classdesc A PhysicalSensor is a processor which has no input ports and
-   *   has exactly one output port named 'out'.
-   *   It also has a device id and sensor type.
-   * @extends Processor
-   */
   var PhysicalSensor = Processor.extend(
     /** @lends PhysicalSensor.prototype */
     {
+
+    /**
+     * @class Physicalsensor
+     * @classdesc A PhysicalSensor is a processor which has no input ports and
+     *   has exactly one output port named 'out'.
+     *   It also has a device id and sensor type.
+     * @extends Processor
+     */
     initialize: function () {
       Processor.prototype.initialize.call(this);
     },
