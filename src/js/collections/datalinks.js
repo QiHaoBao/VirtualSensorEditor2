@@ -3,7 +3,14 @@ define(function (require) {
   var Backbone = require('backbone');
   var DataLink = require('models/datalink');
 
-  var DataLinks = Backbone.Collection.extend({
+  /**
+   * @class DataLinks
+   * @classdesc A collection of datalinks
+   * @extends Backbone.Collection
+   */
+  var DataLinks = Backbone.Collection.extend(
+    /** @lends DataLinks.prototype */
+    {
     model: DataLink
   });
 

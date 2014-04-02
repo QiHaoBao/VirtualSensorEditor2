@@ -3,7 +3,14 @@ define(function (require) {
   var Backbone = require('backbone');
   var Processor = require('models/processor');
 
-  var Processors = Backbone.Collection.extend({
+  /**
+   * @class Processors
+   * @classdesc A collection of processors
+   * @extends Backbone.Collection
+   */
+  var Processors = Backbone.Collection.extend(
+    /** @lends Processors.prototype */
+    {
     model: Processor
   }, {
     fromJSON: function (json) {

@@ -3,7 +3,14 @@ define(function (require) {
   var Backbone = require('backbone');
   var Port     = require('models/port');
 
-  var Ports = Backbone.Collection.extend({
+  /**
+   * @class Ports
+   * @classdesc A collection of ports
+   * @extends Backbone.Collection
+   */
+  var Ports = Backbone.Collection.extend(
+    /** @lends Ports.prototype */
+    {
     model: Port
   }, {
     fromJSON: function (json) {
