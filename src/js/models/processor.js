@@ -293,6 +293,7 @@ define(function (require) {
         name: json.name,
         activity: eval('(' + json.activity + ')')
       });
+      processor.cid = json.cid;
       _.each(json.inputPorts, function (j) {
         var port = new Port({
           name: j.name,
