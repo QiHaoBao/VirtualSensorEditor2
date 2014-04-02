@@ -164,14 +164,35 @@ define(function (require) {
       return this.outputPort.getValue();
     },
 
+    /**
+     * Get the activity of the processor.
+     *
+     * @public
+     * @method
+     * @returns {Function}
+     */
     getActivity: function () {
       return this.get('activity');
     },
 
+    /**
+     * Set the activity of the processor.
+     *
+     * @public
+     * @method
+     * @param {Function} activity 
+     */
     setActivity: function (activity) {
       this.set('activity', activity);
     },
 
+    /**
+     * Set the activity code of the processor.
+     *
+     * @public
+     * @method
+     * @param {String} code
+     */
     setActivityCode: function (code) {
       var args = this.inputPorts.map(function (port) {
         return port.getName();
@@ -180,6 +201,13 @@ define(function (require) {
       this.setActivity(func);
     },
 
+    /**
+     * Get the activity code of the processor.
+     *
+     * @public
+     * @method
+     * @returns {String}
+     */
     getActivityCode: function () {
       return util.getFunctionBody(this.get('activity'));
     },
@@ -205,10 +233,6 @@ define(function (require) {
 
     getHistoricalData: function (data) {
       return this.get('historicalData');
-    },
-
-    getName: function () {
-      return this.get('name');
     },
 
     /**
@@ -270,9 +294,28 @@ define(function (require) {
       });
     },
 
+    /**
+     * Set the name of the processor.
+     *
+     * @public
+     * @method
+     * @param {String} name
+     */
     setName: function (name) {
       this.set('name', name);
     },
+
+    /**
+     * Get the name of the processor.
+     *
+     * @public
+     * @method
+     * @returns {String}
+     */
+    getName: function () {
+      return this.get('name');
+    },
+
 
     toJSON: function () {
       return {
