@@ -1,4 +1,4 @@
 Virtual Sensor Editor
 =====================
 
-!()[http://imgur.com/YfSq0MY]
+![](http://imgur.com/YfSq0MY)
