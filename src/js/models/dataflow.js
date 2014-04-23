@@ -177,9 +177,18 @@ define(function (require) {
     fromJSON: function (json) {
       var dataflow = new Dataflow();
       dataflow.processors = Processors.fromJSON(json.processors);
-      _.each(json.datalinks, function () {
-      
+      _.each(json.datalinks, function (datalink) {
+        var newLink = new DataLink(
+          dataflow.processors
+            .get(datalink.sender.processor)
+            .getPortByCid(datalink.sender.port),
+          dataflow.processors
+            .get(datalink.receiver.processor)
+            .getPortByCid(datalink.receiver.port)
+        );
+        dataflow.datalinks.add(newLink);
       });
+      dataflow.buildDependencyGraph();
       return dataflow;
     }
   });

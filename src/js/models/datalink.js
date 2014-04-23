@@ -68,8 +68,14 @@ define(function (require) {
 
     toJSON: function () {
       return {
-        sender: this.sender.cid,
-        receiver: this.receiver.cid
+        sender: {
+          processor: this.sender.getProcessor().cid,
+          port: this.sender.cid
+        },
+        receiver: {
+          processor: this.receiver.getProcessor().cid,
+          port: this.receiver.cid
+        }
       };
     }
   });

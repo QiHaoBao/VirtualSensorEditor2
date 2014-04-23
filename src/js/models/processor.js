@@ -327,6 +327,13 @@ define(function (require) {
         outputPort: this.outputPort.toJSON(),
         activity: this.getActivity().toString()
       };
+    },
+
+    getPortByCid: function (cid) {
+      if (this.outputPort.cid === cid) {
+        return this.outputPort;
+      }
+      return this.inputPorts.get(cid);
     }
   }, {
     fromJSON: function (json) {
