@@ -62,6 +62,10 @@ define(function (require) {
       return this.processors;
     },
 
+    getDataLinks: function () {
+      return this.datalinks;
+    },
+
     /**
      * Add a datalink into the dataflow.
      * NOTE: the dataflow will rebuild the dependency graph after

@@ -38,7 +38,7 @@ require.config({
 });
 
 require(['views/app'], function (App) {
-  var app = new App({
+  var app = window.app = new App({
     el: '.app'
   });
   app.render();

@@ -107,6 +107,15 @@ define(function (require) {
       return this;
     },
 
+    saveToLocalStorage: function () {
+      window.localStorage.dataflow = JSON.stringify(this.dataflow);
+    },
+
+    loadFromLocalStorage: function () {
+      this.model = Dataflow.fromJSON(JSON.parse(window.localStorage.dataflow));
+      this.dataflowView.resetModel(this.model);
+    },
+
     fetchSensorValues: function (callback) {
       var dataflow = this.dataflow;
       var processors = dataflow.getProcessors();

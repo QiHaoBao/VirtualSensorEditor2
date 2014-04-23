@@ -10,6 +10,7 @@ define(function (require) {
   var PhysicalSensor     = require('models/physical_sensor');
   var DataLink           = require('models/datalink');
   var DataLinkView       = require('views/datalink');
+  var Dataflow           = require('models/dataflow');
   var VirtualSensor      = require('models/virtual_sensor');
   var Alert              = require('models/alert');
   var template           = require('text!templates/dataflow.html');
@@ -65,11 +66,19 @@ define(function (require) {
         this.$el.width(),
         this.$el.height()
       );
+
+      this.addProcessors(this.model.getProcessors());
+      this.addDataLinks(this.model.getDataLinks());
+
       return this;
     },
 
     addProcessors: function (processors) {
-      _.each(processors, this.addProcessor, this);
+      if (_.isArray(processors)) {
+        _.each(processors, this.addProcessor, this);
+      } else {
+        processors.each(this.addProcessor, this);
+      }
     },
 
     addProcessor: function (processor) {
@@ -81,7 +90,11 @@ define(function (require) {
     },
 
     addDataLinks: function (datalinks) {
-      _.each(datalinks, this.addDataLink, this);
+      if (_.isArray(datalinks)) {
+        _.each(datalinks, this.addDataLink, this);
+      } else {
+        datalinks.each(this.addDataLink, this);
+      }
     },
 
     addDataLink: function (datalink) {
@@ -101,6 +114,11 @@ define(function (require) {
         x: portOffset.left - dataflowOffset.left + $port.width() / 2,
         y: portOffset.top - dataflowOffset.top + $port.height() / 2
       };
+    },
+
+    resetModel: function (model) {
+      this.model = model;
+      this.render();
     }
   });
 
