@@ -196,7 +196,6 @@ define(function (require) {
       return dataflow;
     }
   });
-  window.Dataflow = Dataflow;
 
   return Dataflow;
 });
