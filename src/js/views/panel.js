@@ -23,7 +23,8 @@ define(function (require) {
 
       this.$('.sensors-section').accordion({
         collapsible: true,
-        active: false
+        active: false,
+        heightStyle: "content"
       });
 
       this.$('.sensor').draggable({
