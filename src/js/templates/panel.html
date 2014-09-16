@@ -1,17 +1,17 @@
 <div class="sensors-section">
-  <% _.each(_.groupBy(sensors, 'sensorType'), function (group, sensorType) { %>
-    <h3><%= sensorType %></h3>
+  <% _.each(_.groupBy(sensors, 'sensorCategory'), function (group, sensorCategory) { %>
+    <h3><%= sensorCategory %></h3>
     <div>
       <ul class="sensors">
-        <% _.each(sensors, function (sensor) { %>
-        <li class="sensor" data-type="<%= sensorType %>" data-name="<%= sensor.sensorName %>">
+        <% _.each(group, function (sensor) { %>
+        <li class="sensor" data-type="<%= sensor.sensorType %>" data-name="<%= sensor.sensorName %>">
             <%= sensor.sensorName %>
           </li>
         <% }); %>
       </ul>
     </div>
   <% }); %>
-  <h3>virtual</h3>
+  <h3>Create Custom Virtual Sensor</h3>
   <ul class="sensors">
     <li class="sensor" data-type="virtual">
       custom
