@@ -3,10 +3,7 @@ define(function (require) {
   var Backbone = require('backbone');
   var Processor = require('models/processor');
 
-  var VirtualSensor = Processor.extend(
-    /** @lends VirtualSensor.prototype */
-    {
-
+  var VirtualSensor = Processor.extend(/** @lends VirtualSensor.prototype */{
     /**
      * @class VirtualSensor
      * @extends Processor

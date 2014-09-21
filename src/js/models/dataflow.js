@@ -5,10 +5,7 @@ define(function (require) {
   var DataLink   = require('models/datalink');
   var DataLinks  = require('collections/datalinks');
 
-  var Dataflow = Backbone.Model.extend(
-    /** @lends Dataflow.prototype */
-    {
-
+  var Dataflow = Backbone.Model.extend(/** @lends Dataflow.prototype */{
     /**
      * @class Dataflow
      * @classdesc The Dataflow class acts as the container of processors and
@@ -62,6 +59,13 @@ define(function (require) {
       return this.processors;
     },
 
+    /**
+     * Get the datalinks stored in the dataflow.
+     *
+     * @public
+     * @method
+     * @returns {DataLinks}
+     */
     getDataLinks: function () {
       return this.datalinks;
     },
@@ -171,6 +175,13 @@ define(function (require) {
       }
     },
 
+    /**
+     * Serialize the dataflow into a json object.
+     *
+     * @public
+     * @method
+     * @return {Object}
+     */
     toJSON: function () {
       return {
         processors: this.processors.toJSON(),
@@ -178,6 +189,14 @@ define(function (require) {
       };
     }
   }, {
+
+    /**
+     * Construct a dataflow from a json object.
+     *
+     * @static
+     * @param {Object} json
+     * @return {Dataflow}
+     */
     fromJSON: function (json) {
       var dataflow = new Dataflow();
       dataflow.processors = Processors.fromJSON(json.processors);

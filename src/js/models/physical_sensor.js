@@ -3,10 +3,7 @@ define(function (require) {
   var Backbone = require('backbone');
   var Processor = require('models/processor');
 
-  var PhysicalSensor = Processor.extend(
-    /** @lends PhysicalSensor.prototype */
-    {
-
+  var PhysicalSensor = Processor.extend(/** @lends PhysicalSensor.prototype */{
     /**
      * @class Physicalsensor
      * @classdesc A PhysicalSensor is a processor which has no input ports and

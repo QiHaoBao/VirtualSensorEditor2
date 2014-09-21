@@ -2,10 +2,7 @@ define(function (require) {
   var _        = require('underscore');
   var Backbone = require('backbone');
 
-  var Port = Backbone.Model.extend(
-    /** @lends Port.prototype */
-    {
-
+  var Port = Backbone.Model.extend(/** @lends Port.prototype */{
     /**
      * @class Port
      * @classdesc A Port can be either an input port, where data flows in,

@@ -5,10 +5,7 @@ define(function (require) {
   var Ports      = require('collections/ports');
   var util       = require('util');
 
-  var Processor = Backbone.Model.extend(
-    /** @lends Processor.prototype */
-    {
-
+  var Processor = Backbone.Model.extend(/** @lends Processor.prototype */{
     defaults: {
       name: 'untitled',
       x: 0,
@@ -336,6 +333,13 @@ define(function (require) {
       return this.inputPorts.get(cid);
     }
   }, {
+    /**
+     * Construct a processor from a json object.
+     *
+     * @static
+     * @param {Object} json
+     * @return {Processor}
+     */
     fromJSON: function (json) {
       var processor = new Processor({
         x: json.x,

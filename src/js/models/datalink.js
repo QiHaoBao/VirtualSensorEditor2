@@ -2,10 +2,7 @@ define(function (require) {
   var _ = require('underscore');
   var Backbone = require('backbone');
 
-  var DataLink = Backbone.Model.extend(
-    /** @lends DataLink.prototype */
-    {
-    
+  var DataLink = Backbone.Model.extend(/** @lends DataLink.prototype */{
     /**
      * @class DataLink
      * @classdesc DataLink represents the connection between two ports,
