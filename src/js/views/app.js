@@ -31,7 +31,7 @@ define(function (require) {
     render: function () {
       this.$el.html(this.template());
       this.navbarView.setElement(this.$('.navbar')).render();
-      this.panelView.setElement(this.$('.panel')).render();
+      //this.panelView.setElement(this.$('.panel')).render();
       this.dataflowView.setElement(this.$('.dataflow')).render();
 
       $('.slider').slider();
@@ -95,7 +95,14 @@ define(function (require) {
         p4.setValue(Math.random() * 100 + 50);
         df.updateValues();
       }, 1000);
+      // end of test data
 
+      var self = this;
+      api.getAllSensors({
+        callback: function (sensors) {
+          self.panelView.setElement(self.$('.panel')).render(sensors);
+        }
+      });
 
       var fetchSensorValues = _.bind(this.fetchSensorValues, this);
       (function updateSensorValues() {

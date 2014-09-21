@@ -23,6 +23,16 @@ define(function (require) {
         values.push(Math.random() * 100);
       }
       options.callback(values);
+    },
+    getAllSensors: function (options) {
+      var url = hostname + '/getAllSensors/json';
+      $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        success: options.callback
+      });
+
     }
   };
 });

@@ -13,7 +13,8 @@
   padding: 0;
   margin: 0;
   list-style: none;
-  overflow: visible;
+  overflow: scroll;
+  height: 300px;
 }
 
 .sensor {

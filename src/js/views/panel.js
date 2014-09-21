@@ -2,7 +2,6 @@ define(function (require) {
   var _              = require('underscore');
   var Backbone       = require('backbone');
   var PhysicalSensor = require('models/physical_sensor');
-  var config         = require('config');
   var template       = require('text!templates/panel.html');
 
   var PanelView = Backbone.View.extend({
@@ -12,12 +11,12 @@ define(function (require) {
       this.dataflow = options.dataflow;
     },
 
-    render: function () {
+    render: function (sensors) {
       var dataflow = this.dataflow;
 
       this.$el
         .html(this.template({
-          sensors: config.sensors
+          sensors: sensors
         }))
         .draggable();
 
