@@ -40,15 +40,35 @@
   top: 20px;
 }
 
+.processor .add-port {
+  cursor: pointer;
+}
+.processor .add-port.active {
+  display: none;
+}
+
+.processor .add-port-input {
+  width: 50px;
+  display: none;
+  height: 12px;
+  padding: 2px 0;
+}
+.processor .add-port-input.active {
+  display: block;
+}
+
 .ports-wrapper {
   overflow: hidden;
+}
+
+.input-ports-wrapper {
+  float: left;
 }
 
 .input-ports {
   list-style: none;
   padding: 0;
   margin: 0;
-  float: left;
 }
 
 .output-port {

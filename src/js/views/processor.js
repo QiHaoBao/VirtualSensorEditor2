@@ -1,6 +1,7 @@
 define(function (require) {
   var _            = require('underscore');
   var Backbone     = require('backbone');
+  var Port         = require('models/port');
   var Ports        = require('collections/ports');
   var PortView     = require('views/port');
   var PortsView    = require('views/ports');
@@ -21,7 +22,9 @@ define(function (require) {
     events: {
       'click .toolbar-button.edit': 'toggleCode',
       'click .toolbar-button.save': 'saveCode',
-      'click .horizon': 'showTimeline'
+      'click .horizon': 'showTimeline',
+      'click .add-port': 'showAddPortInput',
+      'keyup .add-port-input': 'addInputPort'
     },
 
     initialize: function (options) {
@@ -44,6 +47,7 @@ define(function (require) {
       // event listeners
       this.listenTo(this.model, 'change:x', this.updatePosition);
       this.listenTo(this.model, 'change:y', this.updatePosition);
+      this.listenTo(this.inputPorts, 'add', this.render);
     },
 
     render: function () {
@@ -63,6 +67,9 @@ define(function (require) {
           }
         });
 
+      this.$addPort = this.$('.add-port');
+      this.$addPortInput = this.$('.add-port-input');
+
       this.inputPortsView.setElement(this.$('.input-ports')).render();
       this.outputPortView.setElement(this.$('.output-port')).render();
 
@@ -80,6 +87,18 @@ define(function (require) {
       this.codemirror.setSize('100%', '100px');
 
       return this;
+    },
+
+    showAddPortInput: function () {
+      this.$addPort.addClass('active');
+      this.$addPortInput.addClass('active');
+    },
+
+    addInputPort: function (e) {
+      if (e.which === 13) { // enter key
+        var name = this.$addPortInput.val();
+        this.model.addInputPort(name);
+      }
     },
 
     updatePosition: function () {
