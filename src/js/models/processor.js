@@ -43,7 +43,7 @@ define(function (require) {
      *
      * @public
      * @method
-     * @returns {category}
+     * @returns {string}
      */
     getCategory: function () {
       return this.get('category');
@@ -54,9 +54,9 @@ define(function (require) {
      *
      * @public
      * @method
-     * @param {category} category
+     * @param {string} category
      */
-    setCategory: function () {
+    setCategory: function (category) {
       this.set('category', category);
     },
 

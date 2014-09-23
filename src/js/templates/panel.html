@@ -4,7 +4,7 @@
     <div>
       <ul class="sensors">
         <% _.each(group, function (sensor) { %>
-        <li class="sensor" data-type="<%= sensor.sensorTypeName %>" data-name="<%= sensor.sensorName %>">
+        <li class="sensor" data-type="<%= sensor.sensorTypeName %>" data-name="<%= sensor.sensorName %>" data-category="<%= sensorCategory %>">
             <%= sensor.sensorName %>
           </li>
         <% }); %>

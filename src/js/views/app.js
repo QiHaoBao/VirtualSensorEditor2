@@ -42,17 +42,20 @@ define(function (require) {
       p1.setName("B213 temp");
       p1.setValue(10);
       p1.setPosition(300, 100);
+      p1.setCategory('digitalTemperature');
 
       var p2 = new PhysicalSensor();
       p2.setName("B214 temp");
       p2.setValue(20);
       p2.setPosition(300, 250);
+      p2.setCategory('digitalTemperature');
 
       var p3 = new Processor();
       p3.setName("virtual temp second floor");
       p3.addInputPort('a');
       p3.addInputPort('b');
       p3.setPosition(600, 150);
+      p3.setCategory('digitalTemperature');
       p3.setActivity(function (a, b) {
         return (a + b) / 2;
       });
@@ -61,12 +64,14 @@ define(function (require) {
       p4.setName("B115 temp");
       p4.setValue(30);
       p4.setPosition(600, 300);
+      p4.setCategory('digitalTemperature');
 
       var p5 = new Processor();
       p5.setName("virtual temp bldg 23");
       p5.addInputPort('a');
       p5.addInputPort('b');
       p5.setPosition(900, 175);
+      p5.setCategory('digitalTemperature');
       p5.setActivity(function (a, b) {
         return (a + b) / 2;
       });

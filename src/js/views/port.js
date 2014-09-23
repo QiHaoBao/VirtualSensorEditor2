@@ -61,7 +61,6 @@ define(function (require) {
             var $originPort = $(ui.draggable);
             var originPortView = $originPort.data('view');
             var originPort = originPortView.model;
-            var originCategory = originPort.getProcessor().getCategory();
 
             var sender, receiver;
             if (portType === 'input') {
@@ -71,10 +70,22 @@ define(function (require) {
               receiver = originPort;
               sender = port;
             }
-            var datalink = new DataLink(sender, receiver);
 
+            var senderCategory = sender.getProcessor().getCategory();
+            var receiverCategory = receiver.getProcessor().getCategory();
+
+            if (!receiverCategory) {
+              receiver.getProcessor().setCategory(senderCategory);
+            } else if (receiverCategory !== senderCategory) {
+              var result = window.confirm("Sensor category do not match, continue?");
+              if (!result) {
+                return;
+              }
+            } 
+            var datalink = new DataLink(sender, receiver);
             var dataflow = port.getProcessor().getDataflow();
             dataflow.addDataLink(datalink);
+
           }
         });
       return this;

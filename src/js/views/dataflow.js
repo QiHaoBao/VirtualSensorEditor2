@@ -35,6 +35,7 @@ define(function (require) {
 
             var sensor;
             var type = $sensor.data('type');
+            var category = $sensor.data('category');
             if (type === 'alert') {
               sensor = new Alert({
                 name: 'alert',
@@ -54,7 +55,8 @@ define(function (require) {
                 type: type,
                 //deviceId: deviceId,
                 x: ui.position.left,
-                y: ui.position.top
+                y: ui.position.top,
+                category: category
               });
             }
             dataflow.addProcessor(sensor);
