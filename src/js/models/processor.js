@@ -39,6 +39,28 @@ define(function (require) {
     },
 
     /**
+     * Get the category of which this processor belongs.
+     *
+     * @public
+     * @method
+     * @returns {category}
+     */
+    getCategory: function () {
+      return this.get('category');
+    },
+    
+    /**
+     * Set the category of which this processor belongs.
+     *
+     * @public
+     * @method
+     * @param {category} category
+     */
+    setCategory: function () {
+      this.set('category', category);
+    },
+
+    /**
      * Get the dataflow to which this processor belongs.
      *
      * @public

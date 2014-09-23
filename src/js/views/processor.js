@@ -1,17 +1,19 @@
 define(function (require) {
-  var _            = require('underscore');
-  var Backbone     = require('backbone');
-  var Port         = require('models/port');
-  var Ports        = require('collections/ports');
-  var PortView     = require('views/port');
-  var PortsView    = require('views/ports');
-  var DataLinkView = require('views/datalink');
-  var DataLink     = require('models/datalink');
-  var TimelineView = require('views/timeline');
-  var Alert        = require('models/alert');
-  var template     = require('text!templates/processor.html');
-  var cubism       = require('cubism');
-  var codemirror   = require('codemirror');
+  var _              = require('underscore');
+  var Backbone       = require('backbone');
+  var Port           = require('models/port');
+  var Ports          = require('collections/ports');
+  var PortView       = require('views/port');
+  var PortsView      = require('views/ports');
+  var PhysicalSensor = require('models/physical_sensor');
+  var DataLinkView   = require('views/datalink');
+  var DataLink       = require('models/datalink');
+  var TimelineView   = require('views/timeline');
+  var Alert          = require('models/alert');
+  var template       = require('text!templates/processor.html');
+  var cubism         = require('cubism');
+  var codemirror     = require('codemirror');
+
   require('jqueryui');
 
   var ProcessorView = Backbone.View.extend({
@@ -78,6 +80,10 @@ define(function (require) {
         this.renderAlert();
       } else {
         _.defer(this.renderChart.bind(this));
+      }
+
+      if (this.model instanceof PhysicalSensor) {
+        this.$('.input-ports-wrapper').hide();
       }
 
       var $code = this.$('.code textarea');

@@ -61,6 +61,7 @@ define(function (require) {
             var $originPort = $(ui.draggable);
             var originPortView = $originPort.data('view');
             var originPort = originPortView.model;
+            var originCategory = originPort.getProcessor().getCategory();
 
             var sender, receiver;
             if (portType === 'input') {
