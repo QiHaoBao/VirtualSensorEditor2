@@ -15,6 +15,7 @@ define(function (require) {
     initialize: function () {
       this.processors = new Processors();
       this.datalinks = new DataLinks();
+      this.listenTo(this.processors, 'destroy', this.removeProcessor);
     },
 
     /**
@@ -46,6 +47,30 @@ define(function (require) {
       this.processors.add(processors);
       this.buildDependencyGraph();
       this.trigger('add:processors', processors);
+    },
+
+    /**
+     * Delete a processor from the dataflow.
+     *
+     * @public
+     * @method
+     * @param {Processor} processor The processor to delete
+     */
+    removeProcessor: function (processor) {
+      var datalinksToRemove = [];
+      this.datalinks.each(function (datalink) {
+        var sender = datalink.getSender().getProcessor();
+        var receiver = datalink.getReceiver().getProcessor();
+        if (sender === processor || receiver === processor) {
+          datalinksToRemove.push(datalink);
+        }
+      });
+      _.each(datalinksToRemove, function (datalink) {
+        datalink.destroy();
+      });
+
+      this.buildDependencyGraph();
+      this.trigger('remove:processor', processor);
     },
 
     /**

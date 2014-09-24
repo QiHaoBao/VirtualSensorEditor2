@@ -57,6 +57,10 @@
   display: block;
 }
 
+.processor .remove-port {
+  cursor: pointer;
+}
+
 .ports-wrapper {
   overflow: hidden;
 }
@@ -168,6 +172,14 @@
 }
 
 .axis > svg {
+}
+
+.remove {
+  position: absolute;
+  left: 7px;
+  top: 1px;
+  color: white;
+  cursor: pointer;
 }
 
 /*

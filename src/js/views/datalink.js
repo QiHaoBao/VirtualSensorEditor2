@@ -8,6 +8,7 @@ define(function (require) {
       this.paper = options.paper;
       this.dataflowView = options.dataflowView;
       this.listenTo(this.model, 'change:position', this.render);
+      this.listenTo(this.model, 'destroy', this.remove);;
     },
 
     render: function () {
@@ -32,6 +33,10 @@ define(function (require) {
           receiverPosition.x, receiverPosition.y
         );
       }, 0);
+    },
+
+    remove: function () {
+      this.path.remove();
     }
   }, {
     buildPath: function (paper, sx, sy, ex, ey) {

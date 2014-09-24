@@ -26,7 +26,8 @@ define(function (require) {
       'click .toolbar-button.save': 'saveCode',
       'click .horizon': 'showTimeline',
       'click .add-port': 'showAddPortInput',
-      'keyup .add-port-input': 'addInputPort'
+      'keyup .add-port-input': 'addInputPort',
+      'click .remove': 'remove',
     },
 
     initialize: function (options) {
@@ -201,6 +202,11 @@ define(function (require) {
       });
       view.render();
       return false;
+    },
+
+    remove: function () {
+      this.model.destroy();
+      Backbone.View.prototype.remove.call(this);
     }
   });
 
