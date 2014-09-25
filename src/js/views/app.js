@@ -31,7 +31,6 @@ define(function (require) {
     render: function () {
       this.$el.html(this.template());
       this.navbarView.setElement(this.$('.navbar')).render();
-      //this.panelView.setElement(this.$('.panel')).render();
       this.dataflowView.setElement(this.$('.dataflow')).render();
 
       $('.slider').slider();

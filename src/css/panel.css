@@ -26,3 +26,9 @@
 .sensor:hover {
   color: black;
 }
+
+.spinner {
+  position: absolute;
+  top: 10px;
+  left: 50px;
+}
