@@ -36,29 +36,36 @@ define(function (require) {
             var sensor;
             var type = $sensor.data('type');
             var category = $sensor.data('category');
+
             if (type === 'alert') {
               sensor = new Alert({
-                name: 'alert',
-                x: ui.position.left,
-                y: ui.position.top
+                name: 'alert'
               });
             } else if (type === 'virtual') {
               sensor = new VirtualSensor({
-                name: 'virtual',
-                x: ui.position.left,
-                y: ui.position.top
+                name: 'virtual'
               });
-            } else {
+            } else if (type === 'sum') {
+              sensor = new VirtualSensor({
+                name: 'sum',
+                activity: function () {
+                  return _.reduce(arguments, function (s, n) {
+                    return s + n;
+                  }, 0);
+                }
+              });
+              sensor.addInputPort('a');
+              sensor.addInputPort('b');
+            } else { //type === 'physical'
               //var deviceId = $sensor.data('id').toString();
               sensor = new PhysicalSensor({
                 name: $.trim($sensor.text()),
                 type: type,
                 //deviceId: deviceId,
-                x: ui.position.left,
-                y: ui.position.top,
                 category: category
               });
             }
+            sensor.setPosition(ui.position.left, ui.position.top);
             dataflow.addProcessor(sensor);
           }
         });
