@@ -16,6 +16,23 @@ define(function (require) {
       this.processors = new Processors();
       this.datalinks = new DataLinks();
       this.listenTo(this.processors, 'destroy', this.removeProcessor);
+      this.listenTo(this.processors, 'remove-port', this.removePort);
+    },
+
+    /**
+     * Remove port and related datalinks from dataflow
+     *
+     * @public
+     * @method
+     * @param {Port} 
+     */
+    removePort: function (port) {
+      this.datalinks.each(function (datalink) {
+        var receiver = datalink.getReceiver();
+        if (receiver === port) {
+          datalink.destroy();
+        }
+      });
     },
 
     /**

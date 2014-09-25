@@ -26,6 +26,7 @@ define(function (require) {
       'click .toolbar-button.save': 'saveCode',
       'click .horizon': 'showTimeline',
       'click .add-port': 'showAddPortInput',
+      'click .remove-port': 'removeInputPort',
       'keyup .add-port-input': 'addInputPort',
       'click .remove': 'remove',
     },
@@ -51,6 +52,7 @@ define(function (require) {
       this.listenTo(this.model, 'change:x', this.updatePosition);
       this.listenTo(this.model, 'change:y', this.updatePosition);
       this.listenTo(this.inputPorts, 'add', this.render);
+      this.listenTo(this.inputPorts, 'remove', this.render);
     },
 
     render: function () {
@@ -106,6 +108,11 @@ define(function (require) {
         var name = this.$addPortInput.val();
         this.model.addInputPort(name);
       }
+    },
+
+    removeInputPort: function () {
+      var port = this.model.removeInputPort();
+      
     },
 
     updatePosition: function () {

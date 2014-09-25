@@ -36,6 +36,9 @@ define(function (require) {
       this.listenTo(this.outputPort, 'change:value', function (port) {
         this.trigger('change:output-port-value', port);
       });
+      this.listenTo(this.inputPorts, 'remove', function(port) {
+        this.trigger('remove-port', port);
+      });
     },
 
     /**
@@ -118,6 +121,28 @@ define(function (require) {
         processor: this
       });
       this.inputPorts.add(port);
+    },
+    
+    /**
+     * Remove an input port from the processor.
+     *
+     * @public
+     * @method
+     * @param {String} name Name of input port
+     */
+    removeInputPort: function () {
+      return this.inputPorts.pop();
+
+
+      /*this.datalinks.each(function (datalink) {
+        var receiver = datalink.getReceiver();
+        if (port === receiver) {
+          datalink.destroy();
+          break;
+        }
+      });
+
+      this.buildDependencyGraph();*/
     },
 
     /**
