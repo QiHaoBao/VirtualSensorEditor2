@@ -56,6 +56,26 @@ define(function (require) {
               });
               sensor.addInputPort('a');
               sensor.addInputPort('b');
+            } else if (type === 'mean') {
+              sensor = new VirtualSensor({
+                name: 'mean',
+                activity: function () {
+                  var sum = _.reduce(arguments, function(s, n) {
+                    return s + n;
+                  }, 0);
+                  return sum / arguments.length;
+                }
+              });
+              sensor.addInputPort('a');
+              sensor.addInputPort('b');
+            } else if (type === 'abs') {
+              sensor = new VirtualSensor({
+                name: 'abs',
+                activity: function (a) {
+                  return Math.abs(a);
+                }
+              });
+              sensor.addInputPort('a');
             } else { //type === 'physical'
               //var deviceId = $sensor.data('id').toString();
               sensor = new PhysicalSensor({
