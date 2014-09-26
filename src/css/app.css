@@ -11,3 +11,8 @@
   bottom: 100px;
   width: 100px;
 }
+
+.body {
+    height: 100%;
+    overflow: scroll;
+}

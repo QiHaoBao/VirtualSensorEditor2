@@ -6,9 +6,24 @@ define(function (require) {
   var NavbarView = Backbone.View.extend({
     template: _.template(template),
 
+    events: {
+      'click .nav-team': 'navigateToTeam',
+      'click .nav-home': 'navigateToHome'
+    },
+
     render: function () {
       this.$el.html(this.template());
       return this;
+    },
+
+    navigateToTeam: function () {
+      this.trigger('nav', 'team');
+      return false;
+    },
+
+    navigateToHome: function () {
+      this.trigger('nav', 'home');
+      return false;
     }
   });
 

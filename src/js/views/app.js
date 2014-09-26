@@ -8,6 +8,7 @@ define(function (require) {
   var PhysicalSensor = require('models/physical_sensor');
   var DataLink       = require('models/datalink');
   var PanelView      = require('views/panel');
+  var TeamView       = require('views/team');
   var config         = require('config');
   var api            = require('api');
   var template       = require('text!templates/app.html');
@@ -25,6 +26,9 @@ define(function (require) {
         dataflow: this.dataflow
       });
       this.navbarView = new NavbarView();
+      this.teamView = new TeamView();
+      this.listenTo(this.navbarView, 'nav', this.redirect);
+
       window.dataflow = this.dataflow;
     },
 
@@ -32,6 +36,7 @@ define(function (require) {
       this.$el.html(this.template());
       this.navbarView.setElement(this.$('.navbar')).render();
       this.dataflowView.setElement(this.$('.dataflow')).render();
+      this.panelView.setElement(this.$('.panel'));
 
       $('.slider').slider();
       
@@ -104,7 +109,7 @@ define(function (require) {
       var self = this;
       api.getAllSensors({
         callback: function (sensors) {
-          self.panelView.setElement(self.$('.panel')).render(sensors);
+          self.panelView.render(sensors);
         }
       });
 
@@ -116,6 +121,22 @@ define(function (require) {
       })();
 
       return this;
+    },
+
+    redirect: function (which) {
+      switch (which) {
+        case 'team': 
+          this.dataflowView.$el.hide();
+          this.panelView.$el.hide();
+          this.teamView.setElement(this.$('>.body')).render();
+          this.$('>.body').show();
+          break;
+        case 'home':
+          this.dataflowView.$el.show();
+          this.panelView.$el.show();
+          this.$('>.body').hide();
+          break;
+      }
     },
 
     saveToLocalStorage: function () {
