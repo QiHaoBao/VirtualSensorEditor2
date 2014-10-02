@@ -4,6 +4,7 @@ define(function (require) {
   var d3       = require('d3');
   var cubism   = require('cubism');
   var api      = require('api');
+  var Dygraph  = require('dygraph');
   var template = require('text!templates/timeline.html');
 
   var TimelineView = Backbone.View.extend({
@@ -15,61 +16,59 @@ define(function (require) {
       var self = this;
       this.$el.html(this.template(this.model.attributes));
       $('body')
-        .append(this.$el.fadeIn())
+        .append(this.$el.fadeIn())/*
         .one('click', function () {
           self.$el.fadeOut(function () {
             self.remove();
           });
-        });
+        });*/
 
-      api.getSensorReadingsInTimeRange({
+      api.getSensorReadingInRange({
+        startTimestamp: Date.now()-1000 * 60,
+        endTimestamp: Date.now(),
+        //this.model is a processor
+        sensorName: this.model.getName(),
         callback: function (values) {
-          self.model.setHistoricalData(values);
-          self.plotTimeSeries();
+          self.plotTimeSeries(values);
         }
       });
 
       return this;
     },
 
-    plotTimeSeries: function () {
-      var self = this;
-      var context = cubism.context()
-          .serverDelay(0)
-          .clientDelay(0)
-          .step(1000)
-          .size(this.$('.timeline-body').width());
-
-      var called = false;
-
-      var metric = context.metric(function (start, stop, step, callback) {
-        if (called) {
-          callback(null, []);
-        } else {
-          callback(null, self.model.getHistoricalData());
-          called = true;
-        }
+    plotTimeSeries: function (values) {
+      var valueArray = _.map(values, function(row){
+        return [new Date(row.timeStamp), row.value];
       });
+      var g = new Dygraph(this.$('.timeline-graph').get(0), valueArray, 
+        {
+          labels: ["Timestamp", "Value"]
+        });
 
-      d3.select(this.el).select('.timeline-body').call(function(div) {
-        div
-          .datum(metric)
-          .append('div')
-            .attr('class', 'axis')
-            .call(context.axis()
-               .orient('top')
-               .ticks(10)
-               .tickSubdivide(3)
-               .tickSize(1))
-          .append("div")
-            .attr("class", "horizon")
-            .call(context.horizon()
-              .height(75)
-              .mode('mirror')
-              .colors(["#bdd7e7","#bae4b3"]));
-      });
     }
   });
 
   return TimelineView;
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -7,7 +7,8 @@ require.config({
     jqueryui: 'lib/jquery-ui-1.10.3.custom',
     d3: 'lib/d3.v2',
     cubism: 'lib/cubism.v1',
-    codemirror: 'lib/codemirror'
+    codemirror: 'lib/codemirror',
+    dygraph: 'lib/dygraph'
   },
   shim: {
     underscore: {
@@ -32,6 +33,9 @@ require.config({
     },
     codemirror: {
       exports: 'CodeMirror'
+    },
+    dygraph: {
+      exports: 'Dygraph'
     }
   },
   urlArgs: "bust=" +  Date.now()

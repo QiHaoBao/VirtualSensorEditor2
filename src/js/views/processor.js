@@ -173,7 +173,8 @@ define(function (require) {
             .call(context.horizon()
               .height(30)
               .mode('mirror')
-              .colors(["#bdd7e7","#bae4b3"]));
+              .colors(["#242342", "#bae4b3"]));
+              //.colors(["#bdd7e7","#bae4b3"]));
       });
 
       // On mousemove, reposition the chart values to match the rule.

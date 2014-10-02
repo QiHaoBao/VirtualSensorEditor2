@@ -11,8 +11,8 @@
 .timeline-body {
   position: absolute;
   background: white;
-  width: 90%;
-  height: 100px;
+  width: 600px;
+  height: 400px;
   /*top: 50%;*/
   /*margin-top: -50px;*/
   top: 0;
@@ -25,4 +25,9 @@
 .timeline-body .horizon canvas {
   border: none;
   margin-bottom: 0;
+}
+
+.timeline-graph {
+  width: 100%;
+  height: 100%;
 }
