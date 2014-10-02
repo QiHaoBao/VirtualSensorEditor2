@@ -16,12 +16,12 @@ define(function (require) {
       var self = this;
       this.$el.html(this.template(this.model.attributes));
       $('body')
-        .append(this.$el.fadeIn())/*
+        .append(this.$el.fadeIn())
         .one('click', function () {
           self.$el.fadeOut(function () {
             self.remove();
           });
-        });*/
+        });
 
       api.getSensorReadingInRange({
         startTimestamp: Date.now()-1000 * 60,
