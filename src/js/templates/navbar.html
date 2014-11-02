@@ -8,4 +8,12 @@
   <li><a target="_blank" href="http://sensorserviceplatform.github.io/VirtualSensorEditor/help.html" class="nav-help">Help</a></li>
   <li><a target="_blank" href="http://sensorserviceplatform.github.io/Visualization/" class="nav-visualization">Visualization</a></li>
   <li><a target="_blank" href="team.html" class="nav-team">About us</a></li>
+  
+  <% if (session.isLoggedIn()) { %>
+    <li><a href="#" class="nav-logout">
+      <%= session.getUserName() %> Logout
+    </a></li>
+  <% } else { %>
+    <li><a href="#" class="nav-login">Login</a></li>
+  <% } %>
 </ul>

@@ -1,0 +1,61 @@
+.login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+.login-body {
+  position: absolute;
+  background: white;
+  width: 200px;
+  height: 100px;
+  /*top: 50%;*/
+  /*margin-top: -50px;*/
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.close-button {
+  position: absolute;
+  top: -18px;
+  right: -12.5px;
+  width: 25.5px;
+  height: 36px;
+  cursor: pointer;
+}
+
+.login-username,
+.login-password {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #ddd;
+  margin: 3px 0;
+  padding: 3px 5px;
+  display: inline-block;
+}
+
+.login-button {
+  background: #777;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  height: 26px;
+  width: 70px;
+  margin-top: 10px;
+}
+.timeline-button:hover {
+  background-color: #aaa;
+}
+
+
+
+

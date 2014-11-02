@@ -13,14 +13,45 @@ define(function (require) {
   var Dataflow           = require('models/dataflow');
   var VirtualSensor      = require('models/virtual_sensor');
   var Alert              = require('models/alert');
+  var session            = require('models/session');
+  var fakeDataflow       = require('models/fake_dataflow');
   var template           = require('text!templates/dataflow.html');
 
   var DataflowView = Backbone.View.extend({
     template: _.template(template),
 
     initialize: function (options) {
+      this.setModel(this.model);
+      this.listenTo(session, 'login', this.changeUser);
+      this.listenTo(session, 'logout', this.onLogout);
+    },
+
+    setModel: function (model) {
+      this.model = model;
       this.listenTo(this.model, 'add:processors', this.addProcessors);
       this.listenTo(this.model, 'add:datalinks', this.addDataLinks);
+    },
+
+    changeUser: function () {
+      var username = session.getUserName();
+      var model = null;
+      if (username === null) {
+        model = fakeDataflow;
+      } else {
+        var data = window.localStorage['df-' + username];
+        if (!data) {
+          model = new Dataflow();
+        } else {
+          model = Dataflow.fromJSON(JSON.parse(data));
+        }
+      }
+      this.setModel(model);
+      this.render();
+    },   
+
+    onLogout: function (username) {
+      window.localStorage['df-' + username] = JSON.stringify(this.model);
+      this.changeUser();
     },
 
     render: function () {
@@ -36,6 +67,7 @@ define(function (require) {
             var sensor;
             var type = $sensor.data('type');
             var category = $sensor.data('category');
+            console.log(type, category);
 
             if (type === 'alert') {
               sensor = new Alert({
